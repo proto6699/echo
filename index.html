@@ -1,499 +1,2034 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>ech0 ◈ the den</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='80' x='6'%3E%E2%97%88%3C/text%3E%3C/svg%3E">
-<link rel="preconnec" href="https://fonts.googleapis.com">
+
+<!-- SITE ICON / BROWSER TAB IMAGE -->
+<link rel="icon" type="image/png" href="cat-favicon.png">
+<link rel="shortcut icon" type="image/png" href="cat-favicon.png">
+<link rel="apple-touch-icon" href="cat-favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
+
 :root{
-  --ink:#2C1A0E; --ink2:#4A2E1A; --parch:#F5ECD7; --parch2:#EDD9A3; --cream:#FFF8EE;
-  --gold:#C9952A; --goldlt:#E8B84B; --spark:#F07B10; --sparkdark:#C45A00;
-  --forest:#2D5016; --forest2:#3D6B1F; --forestlt:#4E8A28;
-  --stone:#7A6A52; --stonelt:#A89880; --red:#8B2000;
-  --font-display:'Cinzel',serif; --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --ink:#2C1A0E;
+  --ink2:#4A2E1A;
+  --parch:#F5ECD7;
+  --parch2:#EDD9A3;
+  --cream:#FFF8EE;
+
+  --gold:#C9952A;
+  --goldlt:#E8B84B;
+  --spark:#F07B10;
+  --sparkdark:#C45A00;
+
+  --forest:#2D5016;
+  --forest2:#3D6B1F;
+  --forestlt:#4E8A28;
+
+  --stone:#7A6A52;
+  --stonelt:#A89880;
+  --red:#8B2000;
+
+  --font-display:'Cinzel',serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
   --font-read:Georgia,'Iowan Old Style','Palatino Linotype',serif;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--parch);color:var(--ink);font-family:var(--font-read)}
-a{color:inherit;text-decoration:none}
-::selection{background:var(--gold);color:var(--ink)}
-.wrap{max-width:1240px;margin:auto;padding:0 24px}
-h1,h2,h3{font-family:var(--font-display);letter-spacing:-.01em;margin:0}
-a:focus-visible,button:focus-visible{outline:2px solid var(--spark);outline-offset:3px}
-img{max-width:100%}
 
-/* PROGRESS BAR */
-.progressBar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--spark),var(--goldlt));z-index:100;width:0%}
-
-/* NAV */
-.nav{position:sticky;top:0;z-index:30;background:var(--ink)}
-.navWrap{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:12px;flex-wrap:wrap}
-.logo{font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:.05em;color:var(--goldlt)}
-.logo .sigil{color:var(--spark)}
-.navlinks{display:flex;gap:2px}
-.navlinks a{font-family:var(--font-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--stonelt);padding:9px 13px;border-radius:8px;transition:.2s}
-.navlinks a:hover,.navlinks a.active{color:var(--goldlt);background:rgba(201,149,42,.18)}
-.navRight{display:flex;align-items:center;gap:10px}
-.statusPill{font-family:var(--font-mono);font-size:11px;color:var(--stonelt);background:var(--ink2);border:1px solid var(--stone);padding:6px 12px;border-radius:999px;display:flex;align-items:center;gap:7px;white-space:nowrap}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--spark);box-shadow:0 0 8px var(--spark)}
-.oracleNavBtn{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:8px 13px;border-radius:999px;border:1.5px solid var(--gold);background:var(--ink2);color:var(--goldlt);cursor:pointer;transition:.2s;white-space:nowrap}
-.oracleNavBtn:hover{background:var(--spark);border-color:var(--spark);color:var(--ink)}
-.pattern-divider{height:5px;background:repeating-linear-gradient(90deg,var(--gold) 0 4px,var(--goldlt) 4px 8px,var(--gold) 8px 12px,var(--parch) 12px 16px)}
-
-/* HERO */
-.hero{padding:64px 0 80px}
-.heroGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center}
-.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;color:var(--stone);text-transform:uppercase;margin-bottom:18px}
-.eyebrow b{color:var(--spark);font-weight:600}
-h1.headline{font-size:clamp(38px,5.6vw,68px);line-height:1.06;color:var(--ink)}
-.hero p.lede{font-size:18px;line-height:1.7;color:var(--ink2);max-width:520px;margin:24px 0 30px}
-.actions{display:flex;gap:12px;flex-wrap:wrap}
-.btn{font-family:var(--font-mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;padding:13px 20px;border-radius:10px;border:1.5px solid var(--gold);background:var(--cream);color:var(--ink);cursor:pointer;transition:.2s;display:inline-block}
-.btn:hover{transform:translateY(-2px);border-color:var(--spark)}
-.btn.primary{background:var(--forest);color:var(--goldlt);border-color:var(--forestlt)}
-.btn.primary:hover{background:var(--forest2);box-shadow:0 10px 24px rgba(45,80,22,.25)}
-
-.ledger{background:var(--cream);border:1.5px solid var(--gold);border-radius:20px;overflow:hidden;box-shadow:0 22px 50px rgba(44,26,14,.14)}
-.ledgerHead{display:flex;justify-content:space-between;padding:13px 18px;background:var(--ink)}
-.ledgerHead span{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--stonelt)}
-.ledgerBody{padding:30px;display:grid;place-items:center;min-height:200px}
-.orbit{width:160px;height:160px;border:1.5px dashed var(--gold);border-radius:50%;position:relative;animation:spin 16s linear infinite;display:grid;place-items:center}
-.orbit .glyph{position:absolute;top:-16px;left:calc(50% - 16px);width:32px;height:32px;background:var(--spark);color:var(--cream);border-radius:50%;display:grid;place-items:center;font-family:var(--font-display);font-weight:700;box-shadow:0 0 18px rgba(240,123,16,.55)}
-.orbit .core{font-family:var(--font-display);font-weight:700;font-size:28px;color:var(--ink)}
-.ledgerSpecs{padding:15px 20px;border-top:1px dashed rgba(122,106,82,.4);font-family:var(--font-mono);font-size:11px;color:var(--stone);display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px}
-.ledgerSpecs b{color:var(--ink)}
-
-/* SECTIONS */
-section{padding:72px 0}
-.sectionHead{display:flex;justify-content:space-between;align-items:end;margin-bottom:30px;flex-wrap:wrap;gap:12px}
-.count{font-family:var(--font-mono);font-size:12px;color:var(--stone)}
-h2.title{font-size:clamp(30px,4.2vw,50px);color:var(--ink)}
-.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-
-/* CARDS & NOTES */
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;perspective:1400px}
-.card{display:block;background:var(--cream);border:1.5px solid var(--gold);border-radius:16px;overflow:hidden;position:relative;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .3s;transform-style:preserve-3d;will-change:transform}
-.card:hover{box-shadow:0 20px 42px rgba(44,26,14,.18)}
-.card.large{grid-row:span 2}
-.cardVisual{position:relative;height:210px;overflow:hidden;background:linear-gradient(160deg,var(--parch2),var(--parch))}
-.large .cardVisual{height:460px}
-.cardVisual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
-.cardFallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:60px;color:var(--gold);opacity:.65;z-index:1}
-.cardBody{padding:18px 20px 22px}
-.cardMeta{font-family:var(--font-mono);font-size:10px;letter-spacing:.09em;color:var(--stone);text-transform:uppercase}
-.card h3{font-size:24px;margin:8px 0}
-.card p{color:var(--ink2);line-height:1.55;font-size:14.5px;margin:0}
-.cardFacts{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
-.fact{font-family:var(--font-mono);font-size:10px;padding:5px 9px;border:1px solid rgba(201,149,42,.55);border-radius:8px;color:var(--sparkdark)}
-.arrow{position:absolute;right:16px;bottom:16px;width:34px;height:34px;border:1.5px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--ink);background:var(--cream);transition:.2s}
-.card:hover .arrow{background:var(--forest);color:var(--goldlt);border-color:var(--forestlt);transform:rotate(-20deg)}
-.card.ghost{padding:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-style:dashed;cursor:default}
-.ghost .glyphBig{font-family:var(--font-display);font-size:48px;color:var(--stone);margin-bottom:12px}
-
-.notes{display:grid;gap:12px}
-.note{display:flex;align-items:center;gap:20px;background:var(--cream);border:1.5px solid var(--gold);border-radius:14px;padding:18px 22px;cursor:pointer;transition:.2s}
-.note:hover{transform:translateX(4px);box-shadow:0 10px 24px rgba(44,26,14,.1)}
-.noteNo{font-family:var(--font-mono);font-size:14px;color:var(--spark);font-weight:600}
-.note h3{font-size:18px;margin:0 0 4px}
-.note small{font-family:var(--font-mono);font-size:11px;color:var(--stone)}
-.noteArrow{margin-left:auto;font-family:var(--font-mono);font-size:16px;color:var(--stone)}
-
-.ledgerStrip{margin-top:16px;padding:16px 20px;border:1.5px dashed var(--gold);border-radius:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;background:rgba(255,248,238,.5)}
-.ledgerStrip div{font-family:var(--font-mono);font-size:11px;color:var(--stone)}
-.ledgerStrip b{color:var(--ink)}
-.about-text{font-size:19px;line-height:1.75;color:var(--ink2);max-width:680px}
-
-/* FOOTER */
-footer{background:var(--ink);border-top:2px solid var(--gold);padding:56px 0 28px;margin-top:40px}
-.footerGrid{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
-.footerBig{font-family:var(--font-display);font-size:clamp(24px,3.6vw,40px);color:var(--goldlt);line-height:1.15;max-width:600px}
-footer p{font-family:var(--font-mono);font-size:11px;color:var(--stone);margin-top:10px}
-
-/* MODALS */
-.modalOverlay{position:fixed;inset:0;background:rgba(44,26,14,.55);backdrop-filter:blur(6px);z-index:60;display:none;place-items:center;padding:20px;overflow-y:auto}
-.modalOverlay.open{display:grid}
-.modalBox{max-width:620px;width:100%;background:var(--cream);border:1.5px solid var(--gold);border-radius:20px;padding:32px;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.4);margin:auto}
-.modalClose{position:absolute;right:16px;top:16px;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--gold);background:transparent;color:var(--ink);cursor:pointer;font-size:16px}
-.modalBox h2{font-size:32px;margin:6px 0 4px}
-.modalFacts{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px}
-.modalMeta{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--stone);text-transform:uppercase}
-.modalText p{font-size:16px;line-height:1.65;color:var(--ink2)}
-
-.specTable{margin:20px 0;border:1.5px dashed var(--gold);border-radius:14px;padding:16px 20px;display:grid;gap:8px;background:rgba(255,248,238,.5)}
-.specTable div{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:12px;color:var(--stone)}
-.specTable b{color:var(--ink)}
-
-.oracleBtn{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:10px 16px;border-radius:10px;border:1.5px solid var(--gold);background:var(--ink);color:var(--goldlt);cursor:pointer;transition:.2s}
-.oracleBtn:hover{background:var(--ink2)}
-.catBox{max-width:440px;width:100%;text-align:center}
-.catImgWrap{width:100%;aspect-ratio:1/1;border-radius:16px;overflow:hidden;border:1.5px solid var(--gold);background:var(--parch2);display:flex;align-items:center;justify-content:center;margin:14px 0}
-.catImgWrap img{width:100%;height:100%;object-fit:cover}
-.catFallback{font-size:72px}
-.catQuip{font-style:italic;color:var(--ink2);font-size:15px;line-height:1.6}
-
-@keyframes spin{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-@media(max-width:820px){
-  .navlinks{display:none}
-  .heroGrid{grid-template-columns:1fr;gap:30px}
-  .grid{grid-template-columns:1fr}
-  .card.large{grid-row:auto}
-  .large .cardVisual{height:210px}
-  footer .footerGrid{display:block}
+*{
+  box-sizing:border-box;
 }
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--parch);
+  color:var(--ink);
+  font-family:var(--font-read);
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+::selection{
+  background:var(--gold);
+  color:var(--ink);
+}
+
+.wrap{
+  max-width:1240px;
+  margin:auto;
+  padding:0 24px;
+}
+
+h1,
+h2,
+h3{
+  font-family:var(--font-display);
+  letter-spacing:-.01em;
+  margin:0;
+}
+
+a:focus-visible,
+button:focus-visible{
+  outline:2px solid var(--spark);
+  outline-offset:3px;
+}
+
+img{
+  max-width:100%;
+}
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
+.progressBar{
+  position:fixed;
+  top:0;
+  left:0;
+  height:3px;
+  background:linear-gradient(
+    90deg,
+    var(--spark),
+    var(--goldlt)
+  );
+  z-index:100;
+  width:0%;
+}
+
+/* =========================
+   NAV
+========================= */
+
+.nav{
+  position:sticky;
+  top:0;
+  z-index:30;
+  background:var(--ink);
+}
+
+.navWrap{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 0;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.logo{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:20px;
+  letter-spacing:.05em;
+  color:var(--goldlt);
+}
+
+.logo .sigil{
+  color:var(--spark);
+}
+
+.navlinks{
+  display:flex;
+  gap:2px;
+}
+
+.navlinks a{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--stonelt);
+  padding:9px 13px;
+  border-radius:8px;
+  transition:.2s;
+}
+
+.navlinks a:hover,
+.navlinks a.active{
+  color:var(--goldlt);
+  background:rgba(201,149,42,.18);
+}
+
+.navRight{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.statusPill{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--stonelt);
+  background:var(--ink2);
+  border:1px solid var(--stone);
+  padding:6px 12px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  white-space:nowrap;
+}
+
+.dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--spark);
+  box-shadow:0 0 8px var(--spark);
+}
+
+.oracleNavBtn{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  padding:8px 13px;
+  border-radius:999px;
+  border:1.5px solid var(--gold);
+  background:var(--ink2);
+  color:var(--goldlt);
+  cursor:pointer;
+  transition:.2s;
+  white-space:nowrap;
+}
+
+.oracleNavBtn:hover{
+  background:var(--spark);
+  border-color:var(--spark);
+  color:var(--ink);
+}
+
+.pattern-divider{
+  height:5px;
+  background:repeating-linear-gradient(
+    90deg,
+    var(--gold) 0 4px,
+    var(--goldlt) 4px 8px,
+    var(--gold) 8px 12px,
+    var(--parch) 12px 16px
+  );
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  padding:64px 0 80px;
+}
+
+.heroGrid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:52px;
+  align-items:center;
+}
+
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:.14em;
+  color:var(--stone);
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+
+.eyebrow b{
+  color:var(--spark);
+  font-weight:600;
+}
+
+h1.headline{
+  font-size:clamp(38px,5.6vw,68px);
+  line-height:1.06;
+  color:var(--ink);
+}
+
+.hero p.lede{
+  font-size:18px;
+  line-height:1.7;
+  color:var(--ink2);
+  max-width:520px;
+  margin:24px 0 30px;
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  padding:13px 20px;
+  border-radius:10px;
+  border:1.5px solid var(--gold);
+  background:var(--cream);
+  color:var(--ink);
+  cursor:pointer;
+  transition:.2s;
+  display:inline-block;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  border-color:var(--spark);
+}
+
+.btn.primary{
+  background:var(--forest);
+  color:var(--goldlt);
+  border-color:var(--forestlt);
+}
+
+.btn.primary:hover{
+  background:var(--forest2);
+  box-shadow:0 10px 24px rgba(45,80,22,.25);
+}
+
+.ledger{
+  background:var(--cream);
+  border:1.5px solid var(--gold);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 22px 50px rgba(44,26,14,.14);
+}
+
+.ledgerHead{
+  display:flex;
+  justify-content:space-between;
+  padding:13px 18px;
+  background:var(--ink);
+}
+
+.ledgerHead span{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:.12em;
+  color:var(--stonelt);
+}
+
+.ledgerBody{
+  padding:30px;
+  display:grid;
+  place-items:center;
+  min-height:200px;
+}
+
+.orbit{
+  width:160px;
+  height:160px;
+  border:1.5px dashed var(--gold);
+  border-radius:50%;
+  position:relative;
+  animation:spin 16s linear infinite;
+  display:grid;
+  place-items:center;
+}
+
+.orbit .glyph{
+  position:absolute;
+  top:-16px;
+  left:calc(50% - 16px);
+  width:32px;
+  height:32px;
+  background:var(--spark);
+  color:var(--cream);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-family:var(--font-display);
+  font-weight:700;
+  box-shadow:0 0 18px rgba(240,123,16,.55);
+}
+
+.orbit .core{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:28px;
+  color:var(--ink);
+}
+
+.ledgerSpecs{
+  padding:15px 20px;
+  border-top:1px dashed rgba(122,106,82,.4);
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--stone);
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:6px;
+}
+
+.ledgerSpecs b{
+  color:var(--ink);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+section{
+  padding:72px 0;
+}
+
+.sectionHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:30px;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.count{
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--stone);
+}
+
+h2.title{
+  font-size:clamp(30px,4.2vw,50px);
+  color:var(--ink);
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(16px);
+  transition:
+    opacity .6s ease,
+    transform .6s ease;
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  perspective:1400px;
+}
+
+.card{
+  display:block;
+  background:var(--cream);
+  border:1.5px solid var(--gold);
+  border-radius:16px;
+  overflow:hidden;
+  position:relative;
+  cursor:pointer;
+  transition:
+    transform .35s cubic-bezier(.2,.8,.2,1),
+    box-shadow .3s;
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+
+.card:hover{
+  box-shadow:0 20px 42px rgba(44,26,14,.18);
+}
+
+.card.large{
+  grid-row:span 2;
+}
+
+.cardVisual{
+  position:relative;
+  height:210px;
+  overflow:hidden;
+  background:linear-gradient(
+    160deg,
+    var(--parch2),
+    var(--parch)
+  );
+}
+
+.large .cardVisual{
+  height:460px;
+}
+
+.cardVisual img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:2;
+}
+
+.cardFallback{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:60px;
+  color:var(--gold);
+  opacity:.65;
+  z-index:1;
+}
+
+.cardBody{
+  padding:18px 20px 22px;
+}
+
+.cardMeta{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:.09em;
+  color:var(--stone);
+  text-transform:uppercase;
+}
+
+.card h3{
+  font-size:24px;
+  margin:8px 0;
+}
+
+.card p{
+  color:var(--ink2);
+  line-height:1.55;
+  font-size:14.5px;
+  margin:0;
+}
+
+.cardFacts{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+
+.fact{
+  font-family:var(--font-mono);
+  font-size:10px;
+  padding:5px 9px;
+  border:1px solid rgba(201,149,42,.55);
+  border-radius:8px;
+  color:var(--sparkdark);
+}
+
+.arrow{
+  position:absolute;
+  right:16px;
+  bottom:16px;
+  width:34px;
+  height:34px;
+  border:1.5px solid var(--gold);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:var(--ink);
+  background:var(--cream);
+  transition:.2s;
+}
+
+.card:hover .arrow{
+  background:var(--forest);
+  color:var(--goldlt);
+  border-color:var(--forestlt);
+  transform:rotate(-20deg);
+}
+
+.card.ghost{
+  padding:30px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  border-style:dashed;
+  cursor:default;
+}
+
+.ghost .glyphBig{
+  font-family:var(--font-display);
+  font-size:48px;
+  color:var(--stone);
+  margin-bottom:12px;
+}
+
+/* =========================
+   NOTES
+========================= */
+
+.notes{
+  display:grid;
+  gap:12px;
+}
+
+.note{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  background:var(--cream);
+  border:1.5px solid var(--gold);
+  border-radius:14px;
+  padding:18px 22px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.note:hover{
+  transform:translateX(4px);
+  box-shadow:0 10px 24px rgba(44,26,14,.1);
+}
+
+.noteNo{
+  font-family:var(--font-mono);
+  font-size:14px;
+  color:var(--spark);
+  font-weight:600;
+}
+
+.note h3{
+  font-size:18px;
+  margin:0 0 4px;
+}
+
+.note small{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--stone);
+}
+
+.noteArrow{
+  margin-left:auto;
+  font-family:var(--font-mono);
+  font-size:16px;
+  color:var(--stone);
+}
+
+.ledgerStrip{
+  margin-top:16px;
+  padding:16px 20px;
+  border:1.5px dashed var(--gold);
+  border-radius:14px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:14px;
+  background:rgba(255,248,238,.5);
+}
+
+.ledgerStrip div{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--stone);
+}
+
+.ledgerStrip b{
+  color:var(--ink);
+}
+
+.about-text{
+  font-size:19px;
+  line-height:1.75;
+  color:var(--ink2);
+  max-width:680px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  background:var(--ink);
+  border-top:2px solid var(--gold);
+  padding:56px 0 28px;
+  margin-top:40px;
+}
+
+.footerGrid{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:24px;
+  flex-wrap:wrap;
+}
+
+.footerBig{
+  font-family:var(--font-display);
+  font-size:clamp(24px,3.6vw,40px);
+  color:var(--goldlt);
+  line-height:1.15;
+  max-width:600px;
+}
+
+footer p{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--stone);
+  margin-top:10px;
+}
+
+/* =========================
+   MODALS
+========================= */
+
+.modalOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(44,26,14,.55);
+  backdrop-filter:blur(6px);
+  z-index:60;
+  display:none;
+  place-items:center;
+  padding:20px;
+  overflow-y:auto;
+}
+
+.modalOverlay.open{
+  display:grid;
+}
+
+.modalBox{
+  max-width:620px;
+  width:100%;
+  background:var(--cream);
+  border:1.5px solid var(--gold);
+  border-radius:20px;
+  padding:32px;
+  position:relative;
+  box-shadow:0 30px 80px rgba(0,0,0,.4);
+  margin:auto;
+}
+
+.modalClose{
+  position:absolute;
+  right:16px;
+  top:16px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:1.5px solid var(--gold);
+  background:transparent;
+  color:var(--ink);
+  cursor:pointer;
+  font-size:16px;
+}
+
+.modalBox h2{
+  font-size:32px;
+  margin:6px 0 4px;
+}
+
+.modalFacts{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:12px 0 16px;
+}
+
+.modalMeta{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.08em;
+  color:var(--stone);
+  text-transform:uppercase;
+}
+
+.modalText p{
+  font-size:16px;
+  line-height:1.65;
+  color:var(--ink2);
+}
+
+.specTable{
+  margin:20px 0;
+  border:1.5px dashed var(--gold);
+  border-radius:14px;
+  padding:16px 20px;
+  display:grid;
+  gap:8px;
+  background:rgba(255,248,238,.5);
+}
+
+.specTable div{
+  display:flex;
+  justify-content:space-between;
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--stone);
+}
+
+.specTable b{
+  color:var(--ink);
+}
+
+.oracleBtn{
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  padding:10px 16px;
+  border-radius:10px;
+  border:1.5px solid var(--gold);
+  background:var(--ink);
+  color:var(--goldlt);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.oracleBtn:hover{
+  background:var(--ink2);
+}
+
+.catBox{
+  max-width:440px;
+  width:100%;
+  text-align:center;
+}
+
+.catImgWrap{
+  width:100%;
+  aspect-ratio:1/1;
+  border-radius:16px;
+  overflow:hidden;
+  border:1.5px solid var(--gold);
+  background:var(--parch2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:14px 0;
+}
+
+.catImgWrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.catFallback{
+  font-size:72px;
+}
+
+.catQuip{
+  font-style:italic;
+  color:var(--ink2);
+  font-size:15px;
+  line-height:1.6;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{
+    animation:none!important;
+    transition:none!important;
+  }
+}
+
+@media(max-width:820px){
+
+  .navlinks{
+    display:none;
+  }
+
+  .heroGrid{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .card.large{
+    grid-row:auto;
+  }
+
+  .large .cardVisual{
+    height:210px;
+  }
+
+  footer .footerGrid{
+    display:block;
+  }
+
+}
+
 </style>
 </head>
+
 <body>
 
 <div class="progressBar" id="progressBar"></div>
 
 <nav class="nav" id="nav">
+
   <div class="wrap navWrap">
-    <a class="logo" href="#top">ech0<span class="sigil"> ◈</span></a>
+
+    <a class="logo" href="#top">
+      ech0<span class="sigil"> ◈</span>
+    </a>
+
     <div class="navlinks">
       <a href="#builds">Builds</a>
       <a href="#scrolls">Scrolls</a>
       <a href="#about">About</a>
     </div>
+
     <div class="navRight">
-      <button class="oracleNavBtn oracleTrigger">🔮 Oracle</button>
+      <button class="oracleNavBtn oracleTrigger">
+        🔮 Oracle
+      </button>
     </div>
+
   </div>
+
 </nav>
 
 <div class="pattern-divider"></div>
 
 <main>
+
+<!-- =========================
+     HERO
+========================= -->
+
 <section class="hero wrap" id="top">
+
   <div class="heroGrid">
+
     <div>
-      <div class="eyebrow">~ the digital den of <b>ech0</b> ~</div>
-      <h1 class="headline">I build weird things.<br>Some of them fly.</h1>
-      <p class="lede">Drones, code, and hardware experiments — documented here mostly so future-me remembers what past-me broke and why. Not a résumé. Just the den, open.</p>
+
+      <div class="eyebrow">
+        ~ the digital den of <b>ech0</b> ~
+      </div>
+
+      <h1 class="headline">
+        I build weird things.<br>
+        Some of them fly.
+      </h1>
+
+      <p class="lede">
+        Drones, code, and hardware experiments — documented here mostly so future-me remembers what past-me broke and why. Not a résumé. Just the den, open.
+      </p>
+
       <div class="actions">
-        <a class="btn primary" href="#builds">Explore the den ↓</a>
-        <button class="btn oracleTrigger">Summon the oracle</button>
+
+        <a class="btn primary" href="#builds">
+          Explore the den ↓
+        </a>
+
+        <button class="btn oracleTrigger">
+          Summon the oracle
+        </button>
+
       </div>
+
     </div>
+
     <div class="ledger">
-      <div class="ledgerHead"><span>LIVE EXPERIMENT LOG</span><span>◈ 03</span></div>
+
+      <div class="ledgerHead">
+        <span>LIVE EXPERIMENT LOG</span>
+        <span>◈ 03</span>
+      </div>
+
       <div class="ledgerBody">
-        <div class="orbit"><div class="glyph">◈</div><div class="core">ech0</div></div>
+
+        <div class="orbit">
+
+          <div class="glyph">
+            ◈
+          </div>
+
+          <div class="core">
+            ech0
+          </div>
+
+        </div>
+
       </div>
+
       <div class="ledgerSpecs">
-        <span><b>87g</b> wet</span><span><b>27:12</b> flight</span><span>status: <b>mostly stable</b></span>
+
+        <span>
+          <b>87g</b> wet
+        </span>
+
+        <span>
+          <b>27:12</b> flight
+        </span>
+
+        <span>
+          status:
+          <b>mostly stable</b>
+        </span>
+
       </div>
+
     </div>
+
   </div>
+
 </section>
+
+
+<!-- =========================
+     BUILDS
+========================= -->
 
 <section class="wrap reveal" id="builds">
+
   <div class="sectionHead">
-    <div><div class="eyebrow"><b>02</b> / the den</div><h2 class="title">Things I made.</h2></div>
-    <div class="count">03 built · 01 loading</div>
+
+    <div>
+
+      <div class="eyebrow">
+        <b>02</b> / the den
+      </div>
+
+      <h2 class="title">
+        Things I made.
+      </h2>
+
+    </div>
+
+    <div class="count">
+      03 built · 01 loading
+    </div>
+
   </div>
+
+
   <div class="grid">
 
-    <!-- BUILD 01 -->
-    <div class="card large" 
-         data-modal-title="Echo 03"
-         data-modal-meta="Hardware / Flight — Artifact 01"
-         data-modal-text="A miniature endurance experiment: a 3-inch frame, high-KV motors, and a tabless 18650 doing its best impression of a fuel tank.<br><br>The interesting part isn't the flight-time number — it's the pile of compromises that had to lose an argument with physics to get there. Every gram removed cost something: rigidity, wiring slack, patience."
-         data-modal-specs="Frame:3-inch|All-up weight:87g|Flight time:27:12|Status:mostly stable"
-         data-modal-facts="EXPERIMENTAL|DOCUMENTED|BUILT IRL|SURVIVED THE GROUND">
+
+    <!-- =====================
+         BUILD 01
+    ====================== -->
+
+    <div
+      class="card large"
+
+      data-modal-title="Echo 03"
+
+      data-modal-meta="Hardware / Flight — Artifact 01"
+
+      data-modal-text="A miniature endurance experiment: a 3-inch frame, high-KV motors, and a tabless 18650 doing its best impression of a fuel tank.<br><br>The interesting part isn't the flight-time number — it's the pile of compromises that had to lose an argument with physics to get there. Every gram removed cost something: rigidity, wiring slack, patience."
+
+      data-modal-specs="Frame:3-inch|All-up weight:87g|Flight time:27:12|Status:mostly stable"
+
+      data-modal-facts="EXPERIMENTAL|DOCUMENTED|BUILT IRL|SURVIVED THE GROUND"
+    >
+
       <div class="cardVisual">
-        <img src="echo03.jpg" alt="Echo 03" alt="Echo 03" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-        <div class="cardFallback" style="display:none;">◈</div>
+
+        <img
+          src="echo03.jpg"
+          alt="Echo 03"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+        >
+
+        <div
+          class="cardFallback"
+          style="display:none;"
+        >
+          ◈
+        </div>
+
       </div>
+
+
       <div class="cardBody">
-        <div class="cardMeta">Hardware / Flight — Artifact 01</div>
-        <h3>Echo 03</h3>
-        <p>A miniature endurance experiment: a 3-inch frame, high-KV motors, and a tabless 18650 doing its best impression of a fuel tank.</p>
-        <div class="cardFacts"><span class="fact">EXPERIMENTAL</span><span class="fact">DOCUMENTED</span><span class="fact">BUILT IRL</span></div>
+
+        <div class="cardMeta">
+          Hardware / Flight — Artifact 01
+        </div>
+
+        <h3>
+          Echo 03
+        </h3>
+
+        <p>
+          A miniature endurance experiment: a 3-inch frame, high-KV motors, and a tabless 18650 doing its best impression of a fuel tank.
+        </p>
+
+        <div class="cardFacts">
+
+          <span class="fact">
+            EXPERIMENTAL
+          </span>
+
+          <span class="fact">
+            DOCUMENTED
+          </span>
+
+          <span class="fact">
+            BUILT IRL
+          </span>
+
+        </div>
+
       </div>
-      <div class="arrow">↗</div>
+
+      <div class="arrow">
+        ↗
+      </div>
+
     </div>
 
-    <!-- BUILD 02 -->
-    <div class="card" 
-         data-modal-title="Autonomous Flight"
-         data-modal-meta="Software / Robotics — Artifact 02"
-         data-modal-text="A navigation-and-vision lab: ArduPilot handles the flying, a Raspberry Pi is slowly learning to recognize things from the air, and QGroundControl watches nervously from the ground."
-         data-modal-specs="FC:ArduPilot|Companion:Raspberry Pi|Mission:Computer Vision"
-         data-modal-facts="AI VISION|IN PROGRESS|MISSION: FIND THE THING">
+
+    <!-- =====================
+         BUILD 02
+         SAME IMAGE AS FAVICON
+    ====================== -->
+
+    <div
+      class="card"
+
+      data-modal-title="Autonomous Flight"
+
+      data-modal-meta="Software / Robotics — Artifact 02"
+
+      data-modal-text="A navigation-and-vision lab: ArduPilot handles the flying, a Raspberry Pi is slowly learning to recognize things from the air, and QGroundControl watches nervously from the ground."
+
+      data-modal-specs="FC:ArduPilot|Companion:Raspberry Pi|Mission:Computer Vision"
+
+      data-modal-facts="AI VISION|IN PROGRESS|MISSION: FIND THE THING"
+    >
+
       <div class="cardVisual">
-        <img src="assets/autonomous-flight.jpg" alt="Autonomous Flight" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-        <div class="cardFallback" style="display:none;">⌁</div>
+
+        <!-- FIXED:
+             assets/autonomous-flight.jpg DID NOT EXIST.
+             This uses the actual image in the repository.
+        -->
+
+        <img
+          src="cat-favicon.png"
+          alt="Autonomous Flight"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+        >
+
+        <div
+          class="cardFallback"
+          style="display:none;"
+        >
+          ⌁
+        </div>
+
       </div>
+
+
       <div class="cardBody">
-        <div class="cardMeta">Software / Robotics — Artifact 02</div>
-        <h3>Autonomous Flight</h3>
-        <p>A navigation-and-vision lab: ArduPilot handles the flying, a Raspberry Pi is slowly learning to recognize things from the air...</p>
-        <div class="cardFacts"><span class="fact">AI VISION</span><span class="fact">IN PROGRESS</span></div>
+
+        <div class="cardMeta">
+          Software / Robotics — Artifact 02
+        </div>
+
+        <h3>
+          Autonomous Flight
+        </h3>
+
+        <p>
+          A navigation-and-vision lab: ArduPilot handles the flying, a Raspberry Pi is slowly learning to recognize things from the air...
+        </p>
+
+        <div class="cardFacts">
+
+          <span class="fact">
+            AI VISION
+          </span>
+
+          <span class="fact">
+            IN PROGRESS
+          </span>
+
+        </div>
+
       </div>
-      <div class="arrow">↗</div>
+
+      <div class="arrow">
+        ↗
+      </div>
+
     </div>
 
-    <!-- BUILD 03 -->
-    <div class="card" 
-         data-modal-title="Desktop Machine"
-         data-modal-meta="Hardware / Design — Artifact 03"
-         data-modal-text="A personal workstation where the case is a design object, not an afterthought. Built with custom 3D-printed mounts and overengineered cable routing."
-         data-modal-specs="Chassis:Custom Printed|Theme:Retro Industrial|Lighting:Subtle RGB"
-         data-modal-facts="3D PRINTED|OVERENGINEERED|SLIGHTLY RGB">
+
+    <!-- =====================
+         BUILD 03
+    ====================== -->
+
+    <div
+      class="card"
+
+      data-modal-title="Desktop Machine"
+
+      data-modal-meta="Hardware / Design — Artifact 03"
+
+      data-modal-text="A personal workstation where the case is a design object, not an afterthought. Built with custom 3D-printed mounts and overengineered cable routing."
+
+      data-modal-specs="Chassis:Custom Printed|Theme:Retro Industrial|Lighting:Subtle RGB"
+
+      data-modal-facts="3D PRINTED|OVERENGINEERED|SLIGHTLY RGB"
+    >
+
       <div class="cardVisual">
-        <<img src="desktop-machine.jpg" alt="Desktop Machine" alt="Desktop Machine" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-        <div class="cardFallback" style="display:none;">▦</div>
+
+        <!-- FIXED:
+             <<img -> <img
+        -->
+
+        <img
+          src="desktop-machine.jpg"
+          alt="Desktop Machine"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+        >
+
+        <div
+          class="cardFallback"
+          style="display:none;"
+        >
+          ▦
+        </div>
+
       </div>
+
+
       <div class="cardBody">
-        <div class="cardMeta">Hardware / Design — Artifact 03</div>
-        <h3>Desktop Machine</h3>
-        <p>A personal workstation where the case is a design object, not an afterthought.</p>
-        <div class="cardFacts"><span class="fact">3D PRINTED</span><span class="fact">OVERENGINEERED</span></div>
+
+        <div class="cardMeta">
+          Hardware / Design — Artifact 03
+        </div>
+
+        <h3>
+          Desktop Machine
+        </h3>
+
+        <p>
+          A personal workstation where the case is a design object, not an afterthought.
+        </p>
+
+        <div class="cardFacts">
+
+          <span class="fact">
+            3D PRINTED
+          </span>
+
+          <span class="fact">
+            OVERENGINEERED
+          </span>
+
+        </div>
+
       </div>
-      <div class="arrow">↗</div>
+
+      <div class="arrow">
+        ↗
+      </div>
+
     </div>
+
+
+    <!-- EMPTY BUILD SLOT -->
 
     <div class="card ghost">
-      <div class="glyphBig">?</div>
-      <p>This slot is empty because the next build hasn't happened yet. Check back later, or don't, and be pleasantly surprised.</p>
+
+      <div class="glyphBig">
+        ?
+      </div>
+
+      <p>
+        This slot is empty because the next build hasn't happened yet. Check back later, or don't, and be pleasantly surprised.
+      </p>
+
     </div>
 
   </div>
+
 </section>
+
+
+<!-- =========================
+     SCROLLS
+========================= -->
 
 <section class="wrap reveal" id="scrolls">
+
   <div class="sectionHead">
-    <div><div class="eyebrow"><b>03</b> / field scrolls</div><h2 class="title">Things I learned.</h2></div>
-    <div class="count">latest entries</div>
+
+    <div>
+
+      <div class="eyebrow">
+        <b>03</b> / field scrolls
+      </div>
+
+      <h2 class="title">
+        Things I learned.
+      </h2>
+
+    </div>
+
+    <div class="count">
+      latest entries
+    </div>
+
   </div>
+
+
   <div class="notes">
 
+
     <!-- SCROLL 021 -->
-    <div class="note"
-         data-modal-title="Why I stopped trusting normal LiPo batteries"
-         data-modal-meta="Scroll 021 · 22 AUG 2026 · 6 MIN READ"
-         data-modal-text="Standard LiPos are great until they aren't. After a few thermal incidents and sag issues on micro builds, I began shifting toward custom 18650/21700 cell configurations and tabless chemistry for low-weight endurance.">
-      <div class="noteNo">021</div>
-      <div>
-        <h3>Why I stopped trusting normal LiPo batteries</h3>
-        <small>22 AUG 2026 · 6 MIN READ</small>
+
+    <div
+      class="note"
+
+      data-modal-title="Why I stopped trusting normal LiPo batteries"
+
+      data-modal-meta="Scroll 021 · 22 AUG 2026 · 6 MIN READ"
+
+      data-modal-text="Standard LiPos are great until they aren't. After a few thermal incidents and sag issues on micro builds, I began shifting toward custom 18650/21700 cell configurations and tabless chemistry for low-weight endurance."
+    >
+
+      <div class="noteNo">
+        021
       </div>
-      <div class="noteArrow">→</div>
+
+      <div>
+
+        <h3>
+          Why I stopped trusting normal LiPo batteries
+        </h3>
+
+        <small>
+          22 AUG 2026 · 6 MIN READ
+        </small>
+
+      </div>
+
+      <div class="noteArrow">
+        →
+      </div>
+
     </div>
+
 
     <!-- SCROLL 020 -->
-    <div class="note"
-         data-modal-title="Teaching a 5-inch drone to talk to a laptop"
-         data-modal-meta="Scroll 020 · 19 AUG 2026 · 9 MIN READ"
-         data-modal-text="Setting up low-latency telemetry over ESP-NOW and MAVLink to mirror flight parameters directly into a web interface in real time without dropping packets.">
-      <div class="noteNo">020</div>
-      <div>
-        <h3>Teaching a 5-inch drone to talk to a laptop</h3>
-        <small>19 AUG 2026 · 9 MIN READ</small>
+
+    <div
+      class="note"
+
+      data-modal-title="Teaching a 5-inch drone to talk to a laptop"
+
+      data-modal-meta="Scroll 020 · 19 AUG 2026 · 9 MIN READ"
+
+      data-modal-text="Setting up low-latency telemetry over ESP-NOW and MAVLink to mirror flight parameters directly into a web interface in real time without dropping packets."
+    >
+
+      <div class="noteNo">
+        020
       </div>
-      <div class="noteArrow">→</div>
+
+      <div>
+
+        <h3>
+          Teaching a 5-inch drone to talk to a laptop
+        </h3>
+
+        <small>
+          19 AUG 2026 · 9 MIN READ
+        </small>
+
+      </div>
+
+      <div class="noteArrow">
+        →
+      </div>
+
     </div>
+
 
     <!-- SCROLL 019 -->
-    <div class="note"
-         data-modal-title="Breaking Linux, then apologizing to Linux"
-         data-modal-meta="Scroll 019 · 11 AUG 2026 · 4 MIN READ"
-         data-modal-text="A brief saga of custom kernel compilation, display server lockouts, and fixing broken system dependencies through live USB recovery.">
-      <div class="noteNo">019</div>
-      <div>
-        <h3>Breaking Linux, then apologizing to Linux</h3>
-        <small>11 AUG 2026 · 4 MIN READ</small>
+
+    <div
+      class="note"
+
+      data-modal-title="Breaking Linux, then apologizing to Linux"
+
+      data-modal-meta="Scroll 019 · 11 AUG 2026 · 4 MIN READ"
+
+      data-modal-text="A brief saga of custom kernel compilation, display server lockouts, and fixing broken system dependencies through live USB recovery."
+    >
+
+      <div class="noteNo">
+        019
       </div>
-      <div class="noteArrow">→</div>
+
+      <div>
+
+        <h3>
+          Breaking Linux, then apologizing to Linux
+        </h3>
+
+        <small>
+          11 AUG 2026 · 4 MIN READ
+        </small>
+
+      </div>
+
+      <div class="noteArrow">
+        →
+      </div>
+
     </div>
 
   </div>
+
 
   <div class="ledgerStrip">
-    <div>DEN <b>OPEN</b></div><div>BUILDS <b>03</b></div><div>CURIOSITY <b>HIGH</b></div>
+
+    <div>
+      DEN <b>OPEN</b>
+    </div>
+
+    <div>
+      BUILDS <b>03</b>
+    </div>
+
+    <div>
+      CURIOSITY <b>HIGH</b>
+    </div>
+
   </div>
+
 </section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
 
 <section class="wrap reveal" id="about">
-  <div class="sectionHead"><div><div class="eyebrow"><b>04</b> / about</div><h2 class="title">Still tinkering.</h2></div></div>
-  <p class="about-text">This is a personal den, not a résumé wearing a website costume. It's a collection of hardware experiments, flight logs, and software tweaks created out of pure curiosity.</p>
+
+  <div class="sectionHead">
+
+    <div>
+
+      <div class="eyebrow">
+        <b>04</b> / about
+      </div>
+
+      <h2 class="title">
+        Still tinkering.
+      </h2>
+
+    </div>
+
+  </div>
+
+  <p class="about-text">
+    This is a personal den, not a résumé wearing a website costume. It's a collection of hardware experiments, flight logs, and software tweaks created out of pure curiosity.
+  </p>
+
 </section>
+
 </main>
 
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
+
   <div class="wrap footerGrid">
+
     <div>
-      <div class="footerBig">Built with feline curiosity, powered by whatever's on repeat.</div>
-      <p>© 2026 ech0 ◈ digital den</p>
+
+      <div class="footerBig">
+        Built with feline curiosity, powered by whatever's on repeat.
+      </div>
+
+      <p>
+        © 2026 ech0 ◈ digital den
+      </p>
+
     </div>
-    <div class="statusPill"><span class="dot"></span> SYSTEM ONLINE</div>
+
+    <div class="statusPill">
+
+      <span class="dot"></span>
+
+      SYSTEM ONLINE
+
+    </div>
+
   </div>
+
 </footer>
 
-<!-- GENERIC CONTENT MODAL (Builds + Scrolls) -->
+
+<!-- =========================
+     BUILD / SCROLL MODAL
+========================= -->
+
 <div class="modalOverlay" id="modal">
+
   <div class="modalBox">
-    <button class="modalClose" id="modalClose">×</button>
-    <div class="modalMeta" id="modalMeta"></div>
+
+    <button
+      class="modalClose"
+      id="modalClose"
+    >
+      ×
+    </button>
+
+    <div
+      class="modalMeta"
+      id="modalMeta"
+    ></div>
+
     <h2 id="modalTitle"></h2>
-    <div class="modalFacts" id="modalFacts"></div>
-    <div class="modalText" id="modalText"></div>
-    <div class="specTable" id="modalSpecs" style="display:none;"></div>
+
+    <div
+      class="modalFacts"
+      id="modalFacts"
+    ></div>
+
+    <div
+      class="modalText"
+      id="modalText"
+    ></div>
+
+    <div
+      class="specTable"
+      id="modalSpecs"
+      style="display:none;"
+    ></div>
+
   </div>
+
 </div>
 
-<!-- ORACLE CAT MODAL -->
+
+<!-- =========================
+     ORACLE CAT MODAL
+========================= -->
+
 <div class="modalOverlay" id="catModal">
+
   <div class="modalBox catBox">
-    <button class="modalClose" id="catClose">×</button>
-    <div class="eyebrow">THE ORACLE HAS SPOKEN</div>
-    <div class="catImgWrap">
-      <img id="catImg" alt="A random cat, summoned by the oracle">
-      <div class="catFallback" id="catFallback" style="display:none;">🐱</div>
+
+    <button
+      class="modalClose"
+      id="catClose"
+    >
+      ×
+    </button>
+
+    <div class="eyebrow">
+      THE ORACLE HAS SPOKEN
     </div>
-    <p class="catQuip" id="catQuip"></p>
-    <button class="oracleBtn" id="catReroll">Summon another</button>
+
+    <div class="catImgWrap">
+
+      <img
+        id="catImg"
+        alt="A random cat, summoned by the oracle"
+      >
+
+      <div
+        class="catFallback"
+        id="catFallback"
+        style="display:none;"
+      >
+        🐱
+      </div>
+
+    </div>
+
+    <p
+      class="catQuip"
+      id="catQuip"
+    ></p>
+
+    <button
+      class="oracleBtn"
+      id="catReroll"
+    >
+      Summon another
+    </button>
+
   </div>
+
 </div>
+
 
 <script>
-/* ---- scroll progress bar ---- */
-const progressBar = document.getElementById('progressBar');
-if (progressBar) {
+
+/* =========================
+   SCROLL PROGRESS BAR
+========================= */
+
+const progressBar =
+  document.getElementById('progressBar');
+
+if(progressBar){
+
   addEventListener('scroll', () => {
-    const h = document.documentElement;
-    const scrollable = h.scrollHeight - h.clientHeight;
-    progressBar.style.width = (scrollable > 0 ? (h.scrollTop / scrollable) * 100 : 0) + '%';
+
+    const h =
+      document.documentElement;
+
+    const scrollable =
+      h.scrollHeight - h.clientHeight;
+
+    progressBar.style.width =
+      (
+        scrollable > 0
+        ? (h.scrollTop / scrollable) * 100
+        : 0
+      ) + '%';
+
   });
+
 }
 
-/* ---- reveal on scroll ---- */
-const revealIO = new IntersectionObserver(entries => {
-  entries.forEach(en => {
-    if (en.isIntersecting) { en.target.classList.add('visible'); revealIO.unobserve(en.target); }
-  });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => revealIO.observe(el));
 
-/* ---- tilt on project cards (fine-pointer devices only) ---- */
-if (matchMedia('(pointer:fine)').matches) {
-  document.querySelectorAll('.card:not(.ghost)').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-      card.style.transform = `translateY(-6px) rotateX(${(-py * 7).toFixed(2)}deg) rotateY(${(px * 7).toFixed(2)}deg)`;
+/* =========================
+   REVEAL ON SCROLL
+========================= */
+
+const revealIO =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(en => {
+
+        if(en.isIntersecting){
+
+          en.target.classList.add('visible');
+
+          revealIO.unobserve(en.target);
+
+        }
+
+      });
+
+    },
+    {
+      threshold:0.12
+    }
+  );
+
+document
+  .querySelectorAll('.reveal')
+  .forEach(el => revealIO.observe(el));
+
+
+/* =========================
+   CARD TILT
+========================= */
+
+if(matchMedia('(pointer:fine)').matches){
+
+  document
+    .querySelectorAll('.card:not(.ghost)')
+    .forEach(card => {
+
+      card.addEventListener(
+        'mousemove',
+        e => {
+
+          const r =
+            card.getBoundingClientRect();
+
+          const px =
+            (e.clientX - r.left) /
+            r.width - 0.5;
+
+          const py =
+            (e.clientY - r.top) /
+            r.height - 0.5;
+
+          card.style.transform =
+            `translateY(-6px)
+             rotateX(${(-py * 7).toFixed(2)}deg)
+             rotateY(${(px * 7).toFixed(2)}deg)`;
+
+        }
+      );
+
+      card.addEventListener(
+        'mouseleave',
+        () => {
+
+          card.style.transform = '';
+
+        }
+      );
+
     });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-  });
+
 }
 
-/* ---- dynamic popup modal (builds + scrolls) ---- */
-const projectModal = document.getElementById('modal');
-if (projectModal) {
-  const modalTitle = document.getElementById('modalTitle');
-  const modalMeta = document.getElementById('modalMeta');
-  const modalText = document.getElementById('modalText');
-  const modalFacts = document.getElementById('modalFacts');
-  const modalSpecs = document.getElementById('modalSpecs');
 
-  document.querySelectorAll('[data-modal-title]').forEach(item => {
-    item.addEventListener('click', () => {
-      modalTitle.textContent = item.dataset.modalTitle || '';
-      modalMeta.textContent = item.dataset.modalMeta || '';
-      modalText.innerHTML = item.dataset.modalText || '';
+/* =========================
+   BUILD + SCROLL MODALS
+========================= */
 
-      // Facts
-      const facts = (item.dataset.modalFacts || '').split('|').filter(Boolean);
-      modalFacts.innerHTML = facts.map(f => `<span class="fact">${f}</span>`).join('');
-      modalFacts.style.display = facts.length ? 'flex' : 'none';
+const projectModal =
+  document.getElementById('modal');
 
-      // Specs
-      const specs = (item.dataset.modalSpecs || '').split('|').filter(Boolean);
-      if (specs.length) {
-        modalSpecs.innerHTML = specs.map(s => {
-          const [label, val] = s.split(':');
-          return `div><span>${label}</span><b>${val}</b></div>`;
-        }).join('');
-        modalSpecs.style.display = 'grid';
-      } else {
-        modalSpecs.style.display = 'none';
+if(projectModal){
+
+  const modalTitle =
+    document.getElementById('modalTitle');
+
+  const modalMeta =
+    document.getElementById('modalMeta');
+
+  const modalText =
+    document.getElementById('modalText');
+
+  const modalFacts =
+    document.getElementById('modalFacts');
+
+  const modalSpecs =
+    document.getElementById('modalSpecs');
+
+
+  document
+    .querySelectorAll('[data-modal-title]')
+    .forEach(item => {
+
+      item.addEventListener(
+        'click',
+        () => {
+
+          modalTitle.textContent =
+            item.dataset.modalTitle || '';
+
+          modalMeta.textContent =
+            item.dataset.modalMeta || '';
+
+          modalText.innerHTML =
+            item.dataset.modalText || '';
+
+
+          /* FACTS */
+
+          const facts =
+            (item.dataset.modalFacts || '')
+              .split('|')
+              .filter(Boolean);
+
+          modalFacts.innerHTML =
+            facts
+              .map(
+                f =>
+                  `<span class="fact">${f}</span>`
+              )
+              .join('');
+
+          modalFacts.style.display =
+            facts.length ? 'flex' : 'none';
+
+
+          /* SPECS */
+
+          const specs =
+            (item.dataset.modalSpecs || '')
+              .split('|')
+              .filter(Boolean);
+
+
+          if(specs.length){
+
+            modalSpecs.innerHTML =
+              specs
+                .map(s => {
+
+                  const parts =
+                    s.split(':');
+
+                  const label =
+                    parts.shift();
+
+                  const val =
+                    parts.join(':');
+
+                  /*
+                   * FIXED:
+                   *
+                   * OLD:
+                   * return `div><span>...
+                   *
+                   * NEW:
+                   * return `<div><span>...
+                   */
+
+                  return `
+                    <div>
+                      <span>${label}</span>
+                      <b>${val}</b>
+                    </div>
+                  `;
+
+                })
+                .join('');
+
+            modalSpecs.style.display =
+              'grid';
+
+          }else{
+
+            modalSpecs.style.display =
+              'none';
+
+          }
+
+
+          projectModal.classList.add('open');
+
+        }
+      );
+
+    });
+
+
+  document
+    .getElementById('modalClose')
+    ?.addEventListener(
+      'click',
+      () =>
+        projectModal.classList.remove('open')
+    );
+
+
+  projectModal.addEventListener(
+    'click',
+    e => {
+
+      if(e.target === projectModal){
+
+        projectModal.classList.remove('open');
+
       }
 
-      projectModal.classList.add('open');
-    });
-  });
+    }
+  );
 
-  document.getElementById('modalClose')?.addEventListener('click', () => projectModal.classList.remove('open'));
-  projectModal.addEventListener('click', e => { if (e.target === projectModal) projectModal.classList.remove('open'); });
 }
 
-/* ---- the oracle: random quip + random cat ---- */
+
+/* =========================
+   ORACLE
+========================= */
+
 const quips = [
+
   "the flight controller achieved main character energy today.",
+
   "telemetry link established via vibes and a prayer.",
+
   "we do not speak of the wobble incident of july.",
+
   "87 grams of pure defiance against Newton's laws.",
+
   "the Pi overheated. it needed a moment. so did I.",
+
   "battery voltage: technically fine. emotionally, unclear.",
+
   "ArduPilot said 'trust me' and for once it worked.",
+
   "this build passed inspection. inspection was just me staring at it.",
+
   "propeller balanced using a coin and blind faith.",
+
   "firmware flashed. sanity, less so.",
+
   "the drone landed itself. I take full credit anyway.",
+
   "soldering iron: 1. my fingertips: 0.",
+
   "documented by someone who definitely wrote this at 2am.",
+
   "status: mostly stable, emotionally invested.",
+
   "the code compiled on the first try. deeply suspicious.",
+
   "this quad has seen things. mostly ceilings.",
+
   "GPS lock acquired somewhere between hope and Python.",
+
   "a stray screw fell out mid-flight. it was load-bearing. it was fine.",
+
   "wind was 12 mph. confidence was 100 mph.",
+
   "the object detection model now flags 'bird' as 'threat'.",
+
   "range test successful. return trip: optional, apparently.",
+
   "the log says 'all systems nominal.' the log is an optimist.",
+
   "battery swelled slightly. so did my anxiety.",
+
   "the den floor is 40% desk, 60% loose capacitors."
+
 ];
 
-const catModal = document.getElementById('catModal');
-if (catModal) {
-  const catImg = document.getElementById('catImg');
-  const catFallback = document.getElementById('catFallback');
-  const catQuip = document.getElementById('catQuip');
 
-  function rollCat() {
-    catFallback.style.display = 'none';
-    catImg.style.display = '';
-    catImg.src = 'https://cataas.com/cat?width=500&height=500&t=' + Date.now();
-    catQuip.textContent = quips[Math.floor(Math.random() * quips.length)];
+const catModal =
+  document.getElementById('catModal');
+
+if(catModal){
+
+  const catImg =
+    document.getElementById('catImg');
+
+  const catFallback =
+    document.getElementById('catFallback');
+
+  const catQuip =
+    document.getElementById('catQuip');
+
+
+  function rollCat(){
+
+    catFallback.style.display =
+      'none';
+
+    catImg.style.display =
+      '';
+
+    catImg.src =
+      'https://cataas.com/cat?width=500&height=500&t='
+      + Date.now();
+
+    catQuip.textContent =
+      quips[
+        Math.floor(
+          Math.random() * quips.length
+        )
+      ];
+
   }
 
-  catImg.addEventListener('error', () => {
-    catImg.style.display = 'none';
-    catFallback.style.display = 'flex';
-  });
 
-  function summonOracle() {
+  catImg.addEventListener(
+    'error',
+    () => {
+
+      catImg.style.display =
+        'none';
+
+      catFallback.style.display =
+        'flex';
+
+    }
+  );
+
+
+  function summonOracle(){
+
     document.body.animate(
-      [{ filter: 'hue-rotate(0deg)' }, { filter: 'hue-rotate(18deg)' }, { filter: 'hue-rotate(0deg)' }],
-      { duration: 700 }
+
+      [
+        {
+          filter:'hue-rotate(0deg)'
+        },
+
+        {
+          filter:'hue-rotate(18deg)'
+        },
+
+        {
+          filter:'hue-rotate(0deg)'
+        }
+      ],
+
+      {
+        duration:700
+      }
+
     );
+
     rollCat();
+
     catModal.classList.add('open');
+
   }
 
-  document.querySelectorAll('.oracleTrigger').forEach(btn => btn.addEventListener('click', summonOracle));
-  document.getElementById('catReroll')?.addEventListener('click', rollCat);
-  document.getElementById('catClose')?.addEventListener('click', () => catModal.classList.remove('open'));
-  catModal.addEventListener('click', e => { if (e.target === catModal) catModal.classList.remove('open'); });
+
+  document
+    .querySelectorAll('.oracleTrigger')
+    .forEach(
+      btn =>
+        btn.addEventListener(
+          'click',
+          summonOracle
+        )
+    );
+
+
+  document
+    .getElementById('catReroll')
+    ?.addEventListener(
+      'click',
+      rollCat
+    );
+
+
+  document
+    .getElementById('catClose')
+    ?.addEventListener(
+      'click',
+      () =>
+        catModal.classList.remove('open')
+    );
+
+
+  catModal.addEventListener(
+    'click',
+    e => {
+
+      if(e.target === catModal){
+
+        catModal.classList.remove('open');
+
+      }
+
+    }
+  );
+
 }
+
 </script>
+
 </body>
 </html>
