@@ -1388,7 +1388,116 @@ footer p{
       </div>
 
     </div>
+<!-- ==================================================
+     BUILD 04 — GROUNDLINK
+=================================================== -->
 
+<div
+  class="card"
+
+  data-modal-title="GroundLink"
+
+  data-modal-meta="Software / Drones — Artifact 04"
+
+  data-modal-text="
+    I wanted to understand what actually happens between clicking
+    'go to this waypoint' and a drone actually going there.<br><br>
+
+    So I built GroundLink — a lightweight web-based ground control
+    station written in Rust. It handles vehicle telemetry, processes
+    it on the backend, and pushes live data to a browser dashboard
+    using Axum and WebSockets.<br><br>
+
+    GroundLink currently has its own native Rust demo vehicle, which
+    means I can test telemetry and basic mission behavior without
+    connecting a real aircraft every time I change something.<br><br>
+
+    The long-term target is a real ArduPilot flight controller connected
+    over MAVLink through a telemetry link.<br><br>
+
+    Serious engineering, playful presentation.
+  "
+
+  data-modal-specs="
+    Language:Rust|
+    Web backend:Axum|
+    Protocol:MAVLink|
+    MAVLink library:rust-mavlink|
+    Browser communication:WebSockets|
+    Frontend:HTML / CSS / JavaScript|
+    Demo source:Native Rust simulation|
+    Target autopilot:ArduPilot|
+    Status:In progress
+  "
+
+  data-modal-facts="
+    RUST|
+    MAVLINK|
+    AXUM|
+    IN PROGRESS
+  "
+>
+
+  <div class="cardVisual">
+
+    <img
+      src="groundlink.jpg"
+      alt="GroundLink Rust MAVLink ground control station"
+      onerror="
+        this.style.display='none';
+        this.nextElementSibling.style.display='flex';
+      "
+    >
+
+    <div
+      class="cardFallback"
+      style="display:none;"
+    >
+      GL
+    </div>
+
+  </div>
+
+
+  <div class="cardBody">
+
+    <div class="cardMeta">
+      Software / Drones — Artifact 04
+    </div>
+
+    <h3>
+      GroundLink
+    </h3>
+
+    <p>
+      A Rust-powered web ground station for MAVLink drones.
+      Currently bullying an imaginary drone while I work toward real hardware.
+    </p>
+
+    <div class="cardFacts">
+
+      <span class="fact">
+        RUST
+      </span>
+
+      <span class="fact">
+        MAVLINK
+      </span>
+
+      <span class="fact">
+        AXUM
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="arrow">
+    ↗
+  </div>
+
+</div>
 
     <!-- ==================================================
          EMPTY BUILD SLOT
@@ -1415,7 +1524,70 @@ footer p{
 <!-- =========================
      SCROLLS
 ========================= -->
+<div
+  class="note"
 
+  data-modal-title="I accidentally built a ground control station"
+
+  data-modal-meta="Scroll 022 · 07 SEP 2026 · 7 MIN READ"
+
+  data-modal-text="
+    This started with a pretty simple question: how does a ground
+    station actually talk to a drone?<br><br>
+
+    I use things like QGroundControl, but there's a big difference
+    between using the magic button and knowing what happens after
+    you press the magic button.<br><br>
+
+    So I started building GroundLink.<br><br>
+
+    The backend is written in Rust. MAVLink handles the vehicle
+    communication, rust-mavlink handles MAVLink messages, Axum handles
+    the web side, and WebSockets push live telemetry into a simple
+    HTML/CSS/JavaScript dashboard.<br><br>
+
+    The fun problem was testing it. I didn't want development to require
+    having an actual quad connected every time I changed something, so
+    GroundLink now has a native Rust demo mode.<br><br>
+
+    Running 'cargo run -- --demo' switches the application to its own
+    simulated vehicle source. That lets me test telemetry and mission
+    behavior without risking real hardware.<br><br>
+
+    Right now it's still a prototype. The next big step is replacing
+    Fake Drone™ with a real ArduPilot flight controller and MAVLink
+    telemetry link.<br><br>
+
+    Same software. Considerably more consequences.<br><br>
+
+    The point isn't really to replace QGroundControl. I built this because
+    I wanted to understand the chain myself:<br><br>
+
+    Human → UI → Rust → MAVLink → ArduPilot → Drone → physics :(
+  "
+>
+
+  <div class="noteNo">
+    022
+  </div>
+
+  <div>
+
+    <h3>
+      I accidentally built a ground control station
+    </h3>
+
+    <small>
+      07 SEP 2026 · 7 MIN READ
+    </small>
+
+  </div>
+
+  <div class="noteArrow">
+    →
+  </div>
+
+</div>
 <section class="wrap reveal" id="scrolls">
 
   <div class="sectionHead">
