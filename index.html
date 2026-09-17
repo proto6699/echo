@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <!--
   hi, you're in the source. that means you actually care how this is
@@ -8,9 +8,9 @@
 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ech0 — Software, Hardware &amp; Autonomous Systems</title>
+<title>ech0 ◈ the den</title>
 <meta name="description" content="ech0 — selected engineering projects spanning UAV/UAS, software, embedded systems, Linux, and custom hardware.">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiMwQjBEMTAiLz48cGF0aCBkPSJNMzIgOSBMNTUgMzIgTDMyIDU1IEw5IDMyIFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0ZGQjAyMCIgc3Ryb2tlLXdpZHRoPSI1Ii8+PC9zdmc+Cg==">
+<link rel="icon" type="image/png" href="cat-favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -88,12 +88,16 @@
   .navlinks{display:flex;align-items:center;gap:26px;}
   .navlinks a{color:var(--hf-dim);font-size:0.92rem;font-weight:500;}
   .navlinks a:hover{color:var(--hf-text);text-decoration:none;}
-  .navright{display:flex;align-items:center;gap:12px;}
+  .navright{display:flex;align-items:center;gap:10px;position:relative;}
   .status-pill{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.06em;color:var(--hf-dim);border:1px solid var(--hf-border);border-radius:100px;padding:6px 12px;}
   .status-dot{width:7px;height:7px;border-radius:50%;background:var(--spark);box-shadow:0 0 0 3px color-mix(in srgb, var(--spark) 20%, transparent);animation:pulse 2.4s ease-in-out infinite;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
-  .theme-toggle{width:32px;height:32px;border:1px solid var(--hf-border);background:none;color:var(--hf-dim);cursor:pointer;font-size:0.95rem;line-height:1;}
-  .theme-toggle:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-diamond,.theme-toggle{width:32px;height:32px;border:1px solid var(--hf-border);background:none;color:var(--hf-dim);cursor:pointer;font-size:0.95rem;line-height:1;transition:border-color .2s ease,color .2s ease,transform .2s ease;}
+  .nav-diamond{color:var(--spark);font-size:.9rem;}
+  .nav-diamond:hover,.theme-toggle:hover{border-color:var(--spark);color:var(--spark);transform:translateY(-1px);}
+  .nav-egg-pop{position:absolute;top:44px;right:38px;width:min(290px,78vw);background:var(--panel);border:1px solid var(--hf-border);box-shadow:0 14px 34px color-mix(in srgb,#000 18%,transparent);padding:10px 13px;font-family:var(--font-mono);font-size:.72rem;line-height:1.5;color:var(--text);opacity:0;transform:translateY(-5px);pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:40;}
+  .nav-egg-pop::before{content:"◈";color:var(--spark);margin-right:7px;}
+  .nav-egg-pop.show{opacity:1;transform:translateY(0);}
 
   .hero{padding:76px 0 0;position:relative;overflow:hidden;}
   .hero::before{content:"";position:absolute;inset:0;z-index:0;
@@ -248,7 +252,9 @@
     </div>
     <div class="navright">
       <div class="status-pill"><span class="status-dot"></span>SYSTEM ONLINE</div>
+      <button class="nav-diamond" id="navEggBtn" aria-label="diamond message">◈</button>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">☀</button>
+      <div class="nav-egg-pop" id="navEggPop" role="status" aria-live="polite"></div>
     </div>
   </nav>
 </header>
@@ -432,7 +438,7 @@
       <h2>Get in touch</h2>
       <p>Open to systems and autonomy engineering roles, internships, and collaboration.</p>
       <div class="contact-links">
-        <a class="btn primary" href="mailto:hello@example.com">Email</a>
+        <a class="btn primary" href="mailto:farisbeyahi@proton.me">Email</a>
         <a class="btn" href="https://github.com/proto6699" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
@@ -594,21 +600,45 @@ Gt97oHNjY2EIYhrGHsDHfxhauvxuc+81lc8alP4eovfBGHD9+IRZKg3+ui1+uBjYVl26yQTFylJmz3vr
   }
   tick(); setInterval(tick, 1000);
 
-  const eggLines = [
+  const diamondLines = [
     "status: still tinkering.",
     "the diamond means something to me. no, I won't explain.",
     "built with feline curiosity, powered by whatever's on repeat.",
-    "yes, the telemetry above is fake. the flight data below is not."
+    "serious engineering. suspiciously unserious presentation.",
+    "flight tested beats PowerPoint tested.",
+    "if it works twice, that's basically validation. probably.",
+    "there is almost certainly a cat somewhere in the dependency tree.",
+    "compiled successfully. emotionally, unclear.",
+    "some projects begin with requirements. others begin with 'wait, what if…'",
+    "the fox handles secrets. the cat handles quality control.",
+    "measure twice, solder once, reprint the bracket anyway.",
+    "telemetry nominal. common sense pending.",
+    "one more feature and it's done. this statement has no expiration date.",
+    "◈ you found another diamond. excellent use of company time."
   ];
-  let eggIdx = 0;
+
+  let bottomDiamondIdx = 0;
+  let topDiamondIdx = 3;
+
+  function showDiamond(pop, message, timerKey){
+    pop.textContent = message;
+    pop.classList.add('show');
+    clearTimeout(window[timerKey]);
+    window[timerKey] = setTimeout(()=>pop.classList.remove('show'), 3600);
+  }
+
   const eggBtn = document.getElementById('eggBtn');
   const eggPop = document.getElementById('eggPop');
   eggBtn.addEventListener('click', ()=>{
-    eggPop.textContent = eggLines[eggIdx % eggLines.length];
-    eggIdx++;
-    eggPop.classList.add('show');
-    clearTimeout(window.__eggT);
-    window.__eggT = setTimeout(()=>eggPop.classList.remove('show'), 3200);
+    showDiamond(eggPop, diamondLines[bottomDiamondIdx % diamondLines.length], '__eggT');
+    bottomDiamondIdx++;
+  });
+
+  const navEggBtn = document.getElementById('navEggBtn');
+  const navEggPop = document.getElementById('navEggPop');
+  navEggBtn.addEventListener('click', ()=>{
+    showDiamond(navEggPop, diamondLines[topDiamondIdx % diamondLines.length], '__navEggT');
+    topDiamondIdx++;
   });
 
   const oracleModal = document.getElementById('oracleModal');
@@ -622,15 +652,15 @@ Gt97oHNjY2EIYhrGHsDHfxhauvxuc+81lc8alP4eovfBGHD9+IRZKg3+ui1+uBjYVl26yQTFylJmz3vr
 
   const root = document.documentElement;
   const themeBtn = document.getElementById('themeToggle');
-  function effectiveTheme(){ return root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'); }
+  const stored = localStorage.getItem('ech0-portfolio-theme');
+  root.setAttribute('data-theme', stored === 'dark' ? 'dark' : 'light');
+  function effectiveTheme(){ return root.getAttribute('data-theme'); }
   function paintToggle(){ themeBtn.textContent = effectiveTheme() === 'light' ? '☾' : '☀'; }
-  const stored = localStorage.getItem('theme');
-  if(stored){ root.setAttribute('data-theme', stored); }
   paintToggle();
   themeBtn.addEventListener('click', ()=>{
     const next = effectiveTheme() === 'light' ? 'dark' : 'light';
     root.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
+    localStorage.setItem('ech0-portfolio-theme', next);
     paintToggle();
   });
 </script>
