@@ -13,15 +13,15 @@
   -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0D0B14">
+  <meta name="theme-color" content="#F5ECD7">
 
-  <title>ech0 — Autonomous Systems, Software & Hardware</title>
+  <title>ech0 ◈ the den</title>
   <meta name="description" content="ech0 — engineering projects across autonomous systems, UAV/UAS, Rust software, Linux, embedded systems, and custom hardware.">
   <link rel="canonical" href="https://proto6699.github.io/echo/">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://proto6699.github.io/echo/">
-  <meta property="og:title" content="ech0 — Autonomous Systems, Software & Hardware">
+  <meta property="og:title" content="ech0 — the den">
   <meta property="og:description" content="Engineering autonomous systems from flight hardware to ground software.">
 
   <link rel="icon" type="image/png" href="cat-favicon.png">
@@ -34,71 +34,9 @@
        01. TOKENS
        ============================================================ */
     :root {
-      --bg: #0D0B14;
-      --bg-rgb: 13, 11, 20;
-      --panel: #15121D;
-      --panel-2: #1A1624;
-      --panel-rgb: 21, 18, 29;
-      --border: #302940;
-      --border-strong: #4A3E61;
-      --text: #ECE9F5;
-      --dim: #AAA2BC;
-      --faint: #746A88;
-      --accent: #38C6FF;
-      --accent-rgb: 56, 198, 255;
-      --accent-soft: #9B6BFF;
-      --accent-soft-rgb: 155, 107, 255;
-      --good: #73E0B0;
-      --warning: #FFB85C;
-      --hf-bg: #100D18;
-      --hf-border: #312A45;
-      --hf-text: #ECE9F5;
-      --hf-dim: #B0A6C9;
-      --primary-bg: #ECE9F5;
-      --primary-text: #0D0B14;
-      --primary-border: #ECE9F5;
-      --primary-hover: #38C6FF;
-      --maxw: 1180px;
-      --radius: 4px;
-      --font-display: 'Space Grotesk', system-ui, sans-serif;
-      --font-body: 'Inter', system-ui, sans-serif;
-      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
-      color-scheme: dark;
-    }
-
-    @media (prefers-color-scheme: light) {
-      :root:not([data-theme="dark"]) {
-        --bg: #F5ECD7;
-        --bg-rgb: 245, 236, 215;
-        --panel: #FFF8EE;
-        --panel-2: #F8EFDf;
-        --panel-rgb: 255, 248, 238;
-        --border: #C9A864;
-        --border-strong: #A17E35;
-        --text: #2C1A0E;
-        --dim: #5D422B;
-        --faint: #816D55;
-        --accent: #C45A00;
-        --accent-rgb: 196, 90, 0;
-        --accent-soft: #987019;
-        --accent-soft-rgb: 152, 112, 25;
-        --good: #2D6A43;
-        --warning: #995300;
-        --hf-bg: #2C1A0E;
-        --hf-border: #C9952A;
-        --hf-text: #F6E7C7;
-        --hf-dim: #CDBFA6;
-        --primary-bg: #2D5016;
-        --primary-text: #F6E7C7;
-        --primary-border: #4E8A28;
-        --primary-hover: #3D6B1F;
-        color-scheme: light;
-      }
-    }
-
-    :root[data-theme="light"] {
-      --bg: #F5ECD7;
-      --bg-rgb: 245, 236, 215;
+      /* Light is the default: warm drafting-paper / field-notebook energy. */
+      --bg: #F0E1C0;
+      --bg-rgb: 240, 225, 192;
       --panel: #FFF8EE;
       --panel-2: #F8EFDF;
       --panel-rgb: 255, 248, 238;
@@ -121,10 +59,43 @@
       --primary-text: #F6E7C7;
       --primary-border: #4E8A28;
       --primary-hover: #3D6B1F;
+      --maxw: 1180px;
+      --radius: 4px;
+      --font-display: 'Space Grotesk', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
       color-scheme: light;
     }
 
-    :root[data-theme="dark"] { color-scheme: dark; }
+    :root[data-theme="dark"] {
+      --bg: #15140F;
+      --bg-rgb: 21, 20, 15;
+      --panel: #1D1B15;
+      --panel-2: #242119;
+      --panel-rgb: 29, 27, 21;
+      --border: #484337;
+      --border-strong: #6A614E;
+      --text: #EEE8DC;
+      --dim: #BCB3A3;
+      --faint: #8B8170;
+      --accent: #9AA276;
+      --accent-rgb: 154, 162, 118;
+      --accent-soft: #786D59;
+      --accent-soft-rgb: 120, 109, 89;
+      --good: #8EA279;
+      --warning: #C09661;
+      --hf-bg: #100F0C;
+      --hf-border: #403A30;
+      --hf-text: #EEE8DC;
+      --hf-dim: #B9B09F;
+      --primary-bg: #A7AF82;
+      --primary-text: #15140F;
+      --primary-border: #A7AF82;
+      --primary-hover: #BBC39A;
+      color-scheme: dark;
+    }
+
+    :root[data-theme="light"] { color-scheme: light; }
 
     /* ============================================================
        02. BASE
@@ -251,7 +222,7 @@
       position: sticky;
       top: 0;
       z-index: 30;
-      background: rgba(var(--bg-rgb), .80);
+      background: var(--hf-bg);
       border-bottom: 1px solid var(--hf-border);
       backdrop-filter: blur(18px) saturate(130%);
     }
@@ -265,7 +236,7 @@
     }
 
     .brand {
-      color: var(--text);
+      color: var(--hf-text);
       font-family: var(--font-display);
       font-size: 1.05rem;
       font-weight: 700;
@@ -303,10 +274,38 @@
       background: var(--accent);
       transition: right .22s ease;
     }
-    .navlinks a:hover { color: var(--text); }
+    .navlinks a:hover { color: var(--hf-text); }
     .navlinks a:hover::after { right: 0; }
 
-    .navright { display: flex; align-items: center; gap: 10px; }
+    .navright { display: flex; align-items: center; gap: 10px; position: relative; }
+    .den-message {
+      position: absolute;
+      top: calc(100% + 14px);
+      right: 44px;
+      width: min(340px, calc(100vw - 34px));
+      padding: 10px 12px;
+      border: 1px solid var(--border-strong);
+      background: var(--panel);
+      color: var(--dim);
+      box-shadow: 0 14px 38px rgba(0,0,0,.14);
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      line-height: 1.55;
+      letter-spacing: .015em;
+      opacity: 0;
+      transform: translateY(-5px);
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .den-message::before {
+      content: "DEN // TRANSMISSION";
+      display: block;
+      margin-bottom: 5px;
+      color: var(--accent);
+      font-size: .56rem;
+      letter-spacing: .11em;
+    }
+    .den-message.show { opacity: 1; transform: translateY(0); }
     .status-pill {
       display: flex;
       align-items: center;
@@ -350,16 +349,8 @@
       position: relative;
       padding: 90px 0 0;
     }
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: min(62vw, 820px);
-      aspect-ratio: 1;
-      left: -18vw;
-      top: -26vw;
-      background: radial-gradient(circle, rgba(var(--accent-rgb), .12), transparent 67%);
-      pointer-events: none;
-    }
+    /* Keep the hero clean: the moving drafting grid provides enough atmosphere. */
+    .hero::before { display: none; }
 
     .hero-grid {
       display: grid;
@@ -475,13 +466,25 @@
       margin-top: 76px;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      background: rgba(var(--panel-rgb), .20);
+      background: rgba(var(--panel-rgb), .28);
     }
     .statstrip .wrap { display: grid; grid-template-columns: repeat(3, 1fr); }
     .stat { padding: 22px 24px; border-left: 1px solid var(--border); }
     .stat:first-child { border-left: 0; }
-    .stat .num { font-family: var(--font-mono); font-size: 1.65rem; color: var(--accent-soft); line-height: 1.1; }
-    .stat .num .lv { color: var(--accent); }
+    .stat .num {
+      font-family: var(--font-mono);
+      font-size: 1.65rem;
+      color: var(--text);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -.025em;
+    }
+    .stat .num .lv { color: inherit; }
+    .stat .num .live-dot {
+      color: var(--good);
+      font-size: .82em;
+      margin-right: .1em;
+    }
     .stat .lbl { margin-top: 7px; color: var(--faint); font-family: var(--font-mono); font-size: .65rem; letter-spacing: .05em; text-transform: uppercase; }
 
     /* ============================================================
@@ -769,32 +772,11 @@
     .skills { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px; }
 
     .contact-shell {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 38px;
+      display: flex;
       align-items: center;
-      padding: 34px;
-      border: 1px solid var(--border-strong);
-      background:
-        linear-gradient(120deg, rgba(var(--accent-rgb), .055), transparent 38%),
-        rgba(var(--panel-rgb), .76);
+      padding-top: 4px;
     }
-    .contact-shell::before {
-      content: "CONTACT CHANNEL // OPEN";
-      position: absolute;
-      top: -10px;
-      left: 20px;
-      padding: 1px 8px;
-      background: var(--bg);
-      color: var(--accent);
-      font-family: var(--font-mono);
-      font-size: .58rem;
-      letter-spacing: .09em;
-    }
-    .contact-shell h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); }
-    .contact-shell p { margin: 10px 0 0; color: var(--dim); }
-    .contact-links { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    .contact-links { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-start; }
 
     /* ============================================================
        10. FOOTER / FUN
@@ -870,7 +852,42 @@
       box-shadow: 0 24px 80px rgba(0,0,0,.34);
     }
     .oracle-title { color: var(--accent); font-family: var(--font-mono); font-size: .66rem; letter-spacing: .12em; }
-    .oracle-cat { width: 145px; aspect-ratio: 1; object-fit: contain; margin: 18px auto 8px; display: block; }
+    .oracle-scene {
+      position: relative;
+      width: 190px;
+      height: 165px;
+      margin: 14px auto 10px;
+      display: grid;
+      place-items: end center;
+    }
+    .oracle-cat { width: 132px; aspect-ratio: 1; object-fit: contain; display: block; position: relative; z-index: 2; }
+    .oracle-drone {
+      position: absolute;
+      z-index: 1;
+      width: 92px;
+      top: 5px;
+      right: 1px;
+      color: var(--accent);
+      opacity: .85;
+      transform: rotate(5deg);
+      animation: oracleHover 2.8s ease-in-out infinite;
+    }
+    .oracle-scene-tag {
+      position: absolute;
+      z-index: 3;
+      left: 0;
+      bottom: 2px;
+      padding: 3px 5px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--faint);
+      font-family: var(--font-mono);
+      font-size: .52rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transform: rotate(-2deg);
+    }
+    @keyframes oracleHover { 50% { transform: translateY(-5px) rotate(3deg); } }
     .oracle-copy { color: var(--dim); font-size: .88rem; }
     .oracle-actions { display: flex; justify-content: center; margin-top: 16px; }
 
@@ -905,13 +922,14 @@
         padding: 8px 16px 14px;
         border: 1px solid var(--hf-border);
         border-top: 0;
-        background: rgba(var(--bg-rgb), .96);
+        background: var(--hf-bg);
         backdrop-filter: blur(18px);
       }
       .navlinks.open { display: flex; }
-      .navlinks a { padding: 11px 4px; border-bottom: 1px solid var(--border); }
+      .navlinks a { padding: 11px 4px; border-bottom: 1px solid var(--hf-border); }
       .navlinks a:last-child { border-bottom: 0; }
       .navlinks a::after { display: none; }
+      .den-message { right: 0; }
       .hero { padding-top: 68px; }
       .hero h1 { font-size: clamp(2.35rem, 12vw, 4.2rem); }
       .statstrip { margin-top: 56px; }
@@ -923,7 +941,6 @@
       .module-rail { grid-template-columns: auto 1fr; }
       .module-state { grid-column: 1 / -1; }
       .project-body { padding: 21px 18px 19px; }
-      .contact-shell { grid-template-columns: 1fr; padding: 28px 22px; }
       .contact-links { justify-content: flex-start; }
       .logrow { grid-template-columns: auto 1fr; }
       .log-date { grid-column: 2; }
@@ -969,9 +986,11 @@
       </div>
 
       <div class="navright">
-        <div class="status-pill"><span class="status-dot"></span>system online</div>
-        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle color theme" title="Toggle theme">☀</button>
+        <div class="status-pill"><span class="status-dot"></span>den online</div>
+        <button class="icon-btn" id="denBtn" type="button" aria-label="Receive a den transmission" aria-controls="denMessage" title="Den transmission">◈</button>
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Toggle theme">☾</button>
         <button class="icon-btn menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open navigation">≡</button>
+        <div class="den-message" id="denMessage" role="status" aria-live="polite"></div>
       </div>
     </nav>
   </header>
@@ -981,11 +1000,11 @@
       <div class="wrap">
         <div class="hero-grid">
           <div class="hero-copy reveal">
-            <div class="eyebrow">ECH0 // SYSTEMS ENGINEERING</div>
+            <div class="eyebrow">ECH0 // THE DEN // SYSTEMS ONLINE</div>
             <h1>I build <span class="accent-word">autonomous systems</span> from flight hardware to ground software.</h1>
-            <p class="lede">Rust, MAVLink, ArduPilot, embedded Linux, custom airframes, and whatever the project needs. I like taking systems from rough idea → working prototype → real-world test.</p>
+            <p class="lede">Rust, MAVLink, ArduPilot, embedded Linux, custom airframes, and whatever the project needs. I take ideas from rough sketch → working prototype → real-world test. If it flies, talks over a weird protocol, or makes the lab bench look suspicious, even better.</p>
             <div class="hero-cta">
-              <a class="btn primary" href="#systems">Explore systems <span aria-hidden="true">↓</span></a>
+              <a class="btn primary" href="#systems">Enter the build index <span aria-hidden="true">↓</span></a>
               <a class="btn" href="https://github.com/proto6699" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
             </div>
           </div>
@@ -1010,7 +1029,7 @@
         <div class="wrap">
           <div class="stat"><div class="num">87<span class="lv">g</span></div><div class="lbl">Echo 03 · all-up weight</div></div>
           <div class="stat"><div class="num">27<span class="lv">:12</span></div><div class="lbl">Endurance · single 18650</div></div>
-          <div class="stat"><div class="num"><span class="lv">●</span> LIVE</div><div class="lbl">GroundLink · browser telemetry</div></div>
+          <div class="stat"><div class="num"><span class="live-dot">●</span> LIVE</div><div class="lbl">GroundLink · browser telemetry</div></div>
         </div>
       </div>
     </section>
@@ -1019,8 +1038,8 @@
       <div class="wrap">
         <div class="section-rail reveal"><span>01 // BUILD INDEX</span></div>
         <div class="sec-head reveal">
-          <h2>Selected systems</h2>
-          <p>Not a gallery of screenshots — a field record of software, airframes, security tooling, Linux hardware, and autonomy work that has been built, tested, or is actively being integrated.</p>
+          <h2>Projects from the den</h2>
+          <p>Software, airframes, security tooling, Linux hardware, and autonomy work — built, tested, broken, fixed, and occasionally taught to behave.</p>
         </div>
 
         <div class="project-grid">
@@ -1207,7 +1226,7 @@
         <div class="section-rail reveal"><span>02 // FIELD NOTES</span></div>
         <div class="sec-head reveal">
           <h2>Engineering log</h2>
-          <p>Short notes about the decisions behind the builds — because the interesting part is usually why something worked, failed, or had to be rebuilt.</p>
+          <p>Short notes from behind the builds — because the useful part is usually why something worked, failed, or had to be rebuilt at an unreasonable hour.</p>
         </div>
 
         <div class="log-list reveal">
@@ -1242,12 +1261,12 @@
 
         <div class="about-grid reveal">
           <div class="about-copy">
-            <p>I'm ech0. I build projects that sit across software and hardware: UAV systems, Rust tooling, telemetry, Linux machines, embedded experiments, and custom airframes. I like work where I can take an idea from a rough concept to a prototype, then test it against the real world.</p>
-            <p>I also hold a GACA-issued Remote Pilot Certificate (Open category). The projects here are a selected slice of what I build, not the boundary of what I work on.</p>
+            <p>I'm ech0. I build things in the messy overlap between software and hardware: UAV systems, Rust tooling, telemetry, Linux machines, embedded experiments, and custom airframes. The fun part is taking a rough idea far enough that reality gets a vote.</p>
+            <p>I also hold a GACA-issued Remote Pilot Certificate (Open category). This site is a selected slice of the den, not a complete inventory. Some experiments are still busy becoming respectable projects.</p>
           </div>
 
           <div class="skill-panel">
-            <div class="skill-panel-head">CAPABILITY MAP // CURRENT</div>
+            <div class="skill-panel-head">CURRENT TOOLBOX // SUBJECT TO MUTATION</div>
             <div class="skills">
               <span class="chip">Rust</span><span class="chip">Axum</span><span class="chip">Tokio</span><span class="chip">MAVLink</span><span class="chip">ArduPilot / SITL</span><span class="chip">WebSockets</span><span class="chip">Python</span><span class="chip">Linux / Arch</span><span class="chip">Embedded systems</span><span class="chip">Airframe design</span><span class="chip">Flight testing</span>
             </div>
@@ -1258,11 +1277,8 @@
 
     <section id="contact">
       <div class="wrap">
+        <div class="section-rail reveal"><span>04 // CONTACT</span></div>
         <div class="contact-shell reveal">
-          <div>
-            <h2>Build something interesting?</h2>
-            <p>Open to systems and autonomy engineering roles, internships, and collaboration.</p>
-          </div>
           <div class="contact-links">
             <!-- TODO: replace hello@example.com with your real email before deploying. -->
             <a class="btn primary" href="mailto:hello@example.com">Email</a>
@@ -1277,9 +1293,9 @@
     <div class="wrap">
       <div class="footer-feature">
         <div>
-          <div class="footer-kicker">ECH0 // FIELD LAB</div>
+          <div class="footer-kicker">ECH0 // THE DEN</div>
           <p class="footer-slogan">Made with feline curiosity, serious engineering, and playful presentation.</p>
-          <p class="footer-sub">UAV systems, autonomy, Linux, and the occasional experiment that started with “wait, would this actually work?”</p>
+          <p class="footer-sub">Running on Linux, field-test data, and whatever song is currently stuck on repeat.</p>
         </div>
         <div class="footer-cat" aria-hidden="true">
           <img src="cat-favicon.png" alt="" width="128" height="128" loading="lazy" decoding="async">
@@ -1289,15 +1305,13 @@
 
       <div class="footer-divider"></div>
       <div class="footer-top">
-        <span class="signoff">© 2026 ech0 <span class="diamond">◈</span> digital den</span>
+        <span class="signoff">© 2026 ech0 <span class="diamond">◈</span> the den</span>
         <span class="denstats">DEN <b>OPEN</b> · BUILDS 05 · LOG 04 · CURIOSITY HIGH</span>
       </div>
       <div class="footer-bottom">
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <button class="footer-btn" id="oracleBtn" type="button">🔮 Summon the oracle</button>
-          <button class="footer-btn" id="eggBtn" type="button" aria-label="Reveal easter egg">◈</button>
         </div>
-        <span class="egg-pop" id="eggPop" aria-live="polite"></span>
       </div>
     </div>
   </footer>
@@ -1305,7 +1319,19 @@
   <div class="oracle-modal" id="oracleModal" role="dialog" aria-modal="true" aria-labelledby="oracleTitle" aria-hidden="true">
     <div class="oracle-card">
       <div class="oracle-title" id="oracleTitle">ORACLE // FIELD ADVISORY</div>
-      <img class="oracle-cat" src="cat-favicon.png" alt="The feline engineering oracle" width="180" height="180">
+      <div class="oracle-scene" aria-hidden="true">
+        <svg class="oracle-drone" viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M42 34h36M50 29h20l7 10H43z"/>
+            <path d="M48 34 27 20M72 34 93 20M48 38 27 52M72 38 93 52"/>
+            <circle cx="22" cy="17" r="10"/><circle cx="98" cy="17" r="10"/>
+            <circle cx="22" cy="55" r="10"/><circle cx="98" cy="55" r="10"/>
+            <path d="M13 17h18M89 17h18M13 55h18M89 55h18" opacity=".55"/>
+          </g>
+        </svg>
+        <img class="oracle-cat" src="cat-favicon.png" alt="" width="180" height="180">
+        <span class="oracle-scene-tag" id="oracleSceneTag">CAT // UAS SUPERVISION</span>
+      </div>
       <p class="oracle-copy" id="oracleCopy">The oracle is calculating your next questionable but educational engineering decision.</p>
       <div class="oracle-actions"><button class="btn" id="oracleClose" type="button">Return to lab</button></div>
     </div>
@@ -1318,14 +1344,11 @@
       const menuToggle = document.getElementById('menuToggle');
       const navLinks = document.getElementById('navLinks');
 
-      // Theme: use saved choice first, then system preference.
+      // Theme: light is the den's default. A saved manual choice still wins.
       const savedTheme = localStorage.getItem('ech0-theme');
-      if (savedTheme === 'light' || savedTheme === 'dark') root.dataset.theme = savedTheme;
+      root.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
 
-      const resolvedTheme = () => {
-        if (root.dataset.theme) return root.dataset.theme;
-        return matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-      };
+      const resolvedTheme = () => root.dataset.theme || 'light';
 
       const updateThemeButton = () => {
         const isDark = resolvedTheme() === 'dark';
@@ -1390,23 +1413,174 @@
       telemetry();
       setInterval(telemetry, 1000);
 
-      // Oracle modal with accessible focus return + Escape handling.
+      // Den transmissions: tiny personality burst beside the theme toggle.
+      const denBtn = document.getElementById('denBtn');
+      const denMessage = document.getElementById('denMessage');
+      const denLines = [
+        'the aircraft has seen things. most of them were ceilings.',
+        'status: one cable away from enlightenment.',
+        'MAVLink packet spotted. pretending that was exactly the plan.',
+        'the cat reviewed the flight log. no comment.',
+        'SITL says everything is perfect. reality has requested a second opinion.',
+        'GPS lock acquired. confidence still initializing.',
+        'the drone knows where it is. philosophically, unclear.',
+        'current debugging strategy: add logging until the bug feels observed.',
+        'works on my machine. the machine is becoming increasingly specific.',
+        'packet loss is just telemetry playing hard to get.',
+        'sudo was involved. the den declines further questions.',
+        'the flight controller is armed. the cat is not impressed.',
+        'Linux is stable. my configuration choices are the experimental part.',
+        'the kernel is innocent until proven otherwise.',
+        'encrypted at rest. emotionally unavailable in transit.',
+        'Argon2 is doing the heavy lifting. the fox is supervising.',
+        'ChaCha20-Poly1305 secured the vault. the sleepy fox secured the vibe.',
+        'the compiler rejected my vibes on type-safety grounds.',
+        'borrow checker: 1. mysterious lifetime error: 0. eventually.',
+        'one variable at a time. yes, this message is also for me.',
+        'if unplugging it and plugging it back in works, document the ritual.',
+        'telemetry nominal. bench still suspicious.',
+        'flight test complete. grass collected for scientific purposes.',
+        'the den contains at least three cables whose purpose has been lost to history.',
+        'no bugs detected. this is statistically concerning.',
+        'the fox calls it local-first. the cat calls it “my computer, my rules.”'
+      ];
+      let lastDenIndex = -1;
+      let denTimer;
+
+      const pickNewIndex = (items, lastIndex) => {
+        if (items.length < 2) return 0;
+        let index = Math.floor(Math.random() * items.length);
+        while (index === lastIndex) index = Math.floor(Math.random() * items.length);
+        return index;
+      };
+
+      denBtn.addEventListener('click', () => {
+        lastDenIndex = pickNewIndex(denLines, lastDenIndex);
+        denMessage.textContent = denLines[lastDenIndex];
+        denMessage.classList.add('show');
+        clearTimeout(denTimer);
+        denTimer = setTimeout(() => denMessage.classList.remove('show'), 5600);
+      });
+
+      // Oracle modal: same den voice, longer field advisories, more cat supervision.
       const oracleBtn = document.getElementById('oracleBtn');
       const oracleModal = document.getElementById('oracleModal');
       const oracleClose = document.getElementById('oracleClose');
       const oracleCopy = document.getElementById('oracleCopy');
-      const oracleLines = [
-        'Reduce weight. Then reduce it again. Then discover the cable was the problem.',
-        'The logs know what happened. Read them before changing three variables at once.',
-        'If the prototype looks slightly cursed but the data is clean, continue.',
-        'One more SITL run is cheaper than one dramatic field-test lesson.',
-        'Measure first. Guess second. Pretend the guess was intuition third.'
+      const oracleTitle = document.getElementById('oracleTitle');
+      const oracleSceneTag = document.getElementById('oracleSceneTag');
+      const oracleEntries = [
+        {
+          title: 'ORACLE // UAS FIELD NOTE',
+          tag: 'CAT // AIRWORTHINESS DEPT.',
+          line: 'The aircraft has seen many things. Most of them were ceilings. The oracle recommends maintaining slightly more altitude next time.'
+        },
+        {
+          title: 'ORACLE // WEIGHT REVIEW',
+          tag: 'CAT // PAYLOAD UNAUTHORIZED',
+          line: 'The cat attempted a pre-flight inspection by sitting on the airframe. Weight budget exceeded. Inspection quality: excellent.'
+        },
+        {
+          title: 'ORACLE // TELEMETRY',
+          tag: 'LINK // PROBABLY FINE',
+          line: 'GroundLink says telemetry is nominal. The cat says the blinking light is suspicious. Both opinions have been entered into the flight log.'
+        },
+        {
+          title: 'ORACLE // SITL DEBRIEF',
+          tag: 'SIM // TOO CONFIDENT',
+          line: 'The quad was perfectly stable in SITL. Reality has reviewed the simulation and would like to schedule a meeting.'
+        },
+        {
+          title: 'ORACLE // NAVIGATION',
+          tag: 'GPS // THINKING',
+          line: 'The aircraft knows where it is because GPS told it. The developer knows where the bug is because the logs eventually confessed.'
+        },
+        {
+          title: 'ORACLE // PRE-FLIGHT',
+          tag: 'CAT // CHECKLIST OWNER',
+          line: 'Props secure, battery secure, GPS happy, SD card present. The cat has inspected nothing and approved everything.'
+        },
+        {
+          title: 'ORACLE // AUTONOMY',
+          tag: 'MISSION // QUESTIONABLE',
+          line: 'Autonomy means the aircraft can make decisions by itself. Ideally not the same decisions I make while debugging at two in the morning.'
+        },
+        {
+          title: 'ORACLE // COMPANION COMPUTER',
+          tag: 'LINUX // FIELD MODE',
+          line: 'The companion computer has entered the sacred Linux state known as “works over SSH, refuses to explain itself in the field.”'
+        },
+        {
+          title: 'ORACLE // LINUX ADVISORY',
+          tag: 'KERNEL // NOT GUILTY',
+          line: 'The kernel is probably fine. Your dotfiles, service file, permissions, and one forgotten environment variable are forming a small coalition.'
+        },
+        {
+          title: 'ORACLE // PERMISSIONS',
+          tag: 'SUDO // TEMPORARY PEACE',
+          line: 'If it only works after sudo, you have not fixed it. You have negotiated a temporary ceasefire with permissions.'
+        },
+        {
+          title: 'ORACLE // DEBUGGING',
+          tag: 'LOGS // WITNESS STATEMENT',
+          line: 'Before changing three things, reproduce the bug. Before changing the hardware, wiggle the cable. The oracle has learned this the expensive way.'
+        },
+        {
+          title: 'ORACLE // OBSERVABILITY',
+          tag: 'BUG // CAMERA SHY',
+          line: 'If the bug disappears when observed, add more telemetry and confidently call the entire situation instrumentation work.'
+        },
+        {
+          title: 'ORACLE // RUST',
+          tag: 'BORROW CHECKER // WATCHING',
+          line: 'The borrow checker is not angry. It has simply seen the future and is trying to prevent you from becoming angrier there.'
+        },
+        {
+          title: 'ORACLE // RUST',
+          tag: 'UNWRAP // FUTURE DEBT',
+          line: 'Every unwrap() is a tiny handwritten note to your future self saying “this cannot possibly fail.” The oracle keeps the receipts.'
+        },
+        {
+          title: 'ORACLE // VAULT SECURITY',
+          tag: 'FOX // CRYPTO SUPERVISOR',
+          line: 'Encrypt the secrets, back up the database, and do not ask the sleepy fox to remember your master password. His threat model includes naps.'
+        },
+        {
+          title: 'ORACLE // NONCE DEPARTMENT',
+          tag: 'CRYPTO // DO NOT GET CUTE',
+          line: 'Unique nonces are not a suggestion. If one repeats, the oracle quietly packs a bag and leaves the cryptography department.'
+        },
+        {
+          title: 'ORACLE // SECRET HANDLING',
+          tag: 'LOGGING // ABSOLUTELY NOT',
+          line: 'Never print the secret just to debug the secret. Especially at 2 a.m., when “temporary logging” becomes tomorrow’s archaeological discovery.'
+        },
+        {
+          title: 'ORACLE // NETWORKING',
+          tag: 'PORT // OPEN-ISH',
+          line: 'The service is running. The port is listening. The firewall has developed an independent opinion on whether any of that matters.'
+        },
+        {
+          title: 'ORACLE // FIELD REPAIR',
+          tag: 'CABLE // PRIME SUSPECT',
+          line: 'A surprising percentage of advanced systems engineering is eventually pointing at one cable and saying “you.”'
+        },
+        {
+          title: 'ORACLE // TEST DISCIPLINE',
+          tag: 'VARIABLES // ONE AT A TIME',
+          line: 'Do not change props, PID values, parser code, and battery chemistry in the same test. The cat has confiscated the screwdriver until you agree.'
+        }
       ];
+      let lastOracleIndex = -1;
       let lastFocus = null;
 
       const openOracle = () => {
         lastFocus = document.activeElement;
-        oracleCopy.textContent = oracleLines[Math.floor(Math.random() * oracleLines.length)];
+        lastOracleIndex = pickNewIndex(oracleEntries, lastOracleIndex);
+        const entry = oracleEntries[lastOracleIndex];
+        oracleTitle.textContent = entry.title;
+        oracleSceneTag.textContent = entry.tag;
+        oracleCopy.textContent = entry.line;
         oracleModal.classList.add('show');
         oracleModal.setAttribute('aria-hidden', 'false');
         oracleClose.focus();
@@ -1420,25 +1594,6 @@
       oracleClose.addEventListener('click', closeOracle);
       oracleModal.addEventListener('click', (e) => { if (e.target === oracleModal) closeOracle(); });
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && oracleModal.classList.contains('show')) closeOracle(); });
-
-      // Small footer easter egg.
-      const eggBtn = document.getElementById('eggBtn');
-      const eggPop = document.getElementById('eggPop');
-      const eggLines = [
-        'status: still tinkering.',
-        'the diamond means something. no, I won’t explain.',
-        'built with feline curiosity, powered by whatever’s on repeat.',
-        'yes, the telemetry above is simulated. the flight-test data is not.'
-      ];
-      let eggIndex = 0;
-      let eggTimer;
-      eggBtn.addEventListener('click', () => {
-        eggPop.textContent = eggLines[eggIndex % eggLines.length];
-        eggIndex += 1;
-        eggPop.classList.add('show');
-        clearTimeout(eggTimer);
-        eggTimer = setTimeout(() => eggPop.classList.remove('show'), 4200);
-      });
     })();
   </script>
 </body>
