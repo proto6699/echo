@@ -884,6 +884,7 @@
       display: block;
       object-fit: cover;
     }
+    .oracle-image.is-neco { object-fit: contain; padding: 8px; }
     .oracle-copy { margin: 0; color: var(--dim); font-size: .9rem; line-height: 1.65; }
     .oracle-actions { display: flex; justify-content: center; margin-top: 18px; }
 
@@ -1295,7 +1296,7 @@
           <p class="footer-sub">Running on Linux, field-test data, and whatever song is currently stuck on repeat.</p>
         </div>
         <div class="footer-cat" aria-hidden="true">
-          <img src="cat-favicon.png" alt="" width="128" height="128" loading="lazy" decoding="async">
+          <img src="https://raw.githubusercontent.com/proto6699/GroundLink-Demo/main/neco-drone.png" alt="" width="128" height="128" loading="lazy" decoding="async">
           <span class="footer-tag">NECO // QC UNIT</span>
         </div>
       </div>
@@ -1311,7 +1312,7 @@
   <div class="oracle-modal" id="oracleModal" role="dialog" aria-modal="true" aria-label="The den oracle" aria-hidden="true">
     <div class="oracle-card">
       <div class="oracle-image-wrap">
-        <img class="oracle-image" id="oracleImage" src="cat-favicon.png" alt="The den oracle" width="520" height="390">
+        <img class="oracle-image is-neco" id="oracleImage" src="https://raw.githubusercontent.com/proto6699/GroundLink-Demo/main/neco-drone.png" alt="Neco, the den oracle" width="520" height="390">
       </div>
       <p class="oracle-copy" id="oracleCopy">The oracle is calculating your next questionable but educational engineering decision.</p>
       <div class="oracle-actions"><button class="btn" id="oracleAgain" type="button">Summon another oracle</button></div>
@@ -1442,75 +1443,150 @@
         denTimer = setTimeout(() => denMessage.classList.remove('show'), 5600);
       });
 
-      // Oracle: one random cat/fox image, one den advisory, one button to summon again.
+      // Oracle: feline-only. Neco is the reliable resident oracle; Cataas supplies extra visitors.
       const oracleBtn = document.getElementById('oracleBtn');
       const oracleModal = document.getElementById('oracleModal');
       const oracleAgain = document.getElementById('oracleAgain');
       const oracleCopy = document.getElementById('oracleCopy');
       const oracleImage = document.getElementById('oracleImage');
       const oracleEntries = [
-        { animal: 'cat', line: 'The aircraft has seen many things. Most of them were ceilings. This has been entered into the maintenance history as “visual inspection.”' },
-        { animal: 'cat', line: 'The cat attempted a pre-flight inspection by sitting on the airframe. Weight budget exceeded. Inspection quality: excellent.' },
-        { animal: 'cat', line: 'GroundLink says telemetry is nominal. The oracle says the blinking light is suspicious. Both opinions have equal confidence.' },
-        { animal: 'cat', line: 'The quad was perfectly stable in SITL. Reality has reviewed the simulation and would like to schedule a meeting.' },
-        { animal: 'cat', line: 'Props secure, battery secure, GPS happy, SD card present. The oracle inspected none of this and approved the flight anyway.' },
-        { animal: 'cat', line: 'Autonomy means the aircraft can make decisions by itself. Ideally not the decisions I make while debugging after midnight.' },
-        { animal: 'cat', line: 'The companion computer has entered the sacred Linux state known as “works over SSH, refuses to explain itself in the field.”' },
-        { animal: 'cat', line: 'If it only works after sudo, you have not fixed it. You have negotiated a temporary ceasefire with permissions.' },
-        { animal: 'cat', line: 'Before changing three things, reproduce the bug. Before changing the hardware, wiggle the cable. Ancient den procedure.' },
-        { animal: 'cat', line: 'If the bug disappears when observed, add more telemetry and call the entire situation instrumentation work.' },
-        { animal: 'cat', line: 'The borrow checker is not angry. It has simply seen the future and is trying to stop you from becoming angrier there.' },
-        { animal: 'fox', line: 'Encrypt the secrets, back up the database, and do not ask the fox to remember your master password. The threat model includes naps.' },
-        { animal: 'fox', line: 'Unique nonces are not a suggestion. If one repeats, the oracle quietly packs a bag and leaves the cryptography department.' },
-        { animal: 'fox', line: 'Never print the secret just to debug the secret. “Temporary logging” is how tomorrow gets archaeological layers.' },
-        { animal: 'fox', line: 'ChaCha20-Poly1305 secured the vault. The fox secured the vibe. Division of labor remains efficient.' },
-        { animal: 'fox', line: 'Local-first means the data stays close. The fox approves because clouds are outside and outside contains weather.' },
-        { animal: 'cat', line: 'The service is running. The port is listening. The firewall has developed an independent opinion on whether any of that matters.' },
-        { animal: 'cat', line: 'A surprising percentage of advanced systems engineering is eventually pointing at one cable and saying “you.”' },
-        { animal: 'cat', line: 'Do not change props, PID values, parser code, and battery chemistry in the same test. The oracle has confiscated the screwdriver.' },
-        { animal: 'cat', line: '87 grams is not a weight anymore. It is a belief system with propellers.' },
-        { animal: 'fox', line: 'The vault has no cloud sync. The fox describes this as “excellent perimeter control” and then goes back to sleep.' }
+        { line: 'The aircraft has seen many things. Most of them were ceilings. This has been entered into the maintenance history as “visual inspection.”' },
+        { line: 'The cat attempted a pre-flight inspection by sitting on the airframe. Weight budget exceeded. Inspection quality: excellent.' },
+        { line: 'GroundLink says telemetry is nominal. The oracle says the blinking light is suspicious. Both opinions have equal confidence.' },
+        { line: 'The quad was perfectly stable in SITL. Reality has reviewed the simulation and would like to schedule a meeting.' },
+        { line: 'Props secure, battery secure, GPS happy, SD card present. The oracle inspected none of this and approved the flight anyway.' },
+        { line: 'Autonomy means the aircraft can make decisions by itself. Ideally not the decisions I make while debugging after midnight.' },
+        { line: 'The companion computer has entered the sacred Linux state known as “works over SSH, refuses to explain itself in the field.”' },
+        { line: 'If it only works after sudo, you have not fixed it. You have negotiated a temporary ceasefire with permissions.' },
+        { line: 'Before changing three things, reproduce the bug. Before changing the hardware, wiggle the cable. Ancient den procedure.' },
+        { line: 'If the bug disappears when observed, add more telemetry and call the entire situation instrumentation work.' },
+        { line: 'The borrow checker is not angry. It has simply seen the future and is trying to stop you from becoming angrier there.' },
+        { line: 'Encrypt the secrets, back up the database, and do not ask the oracle to remember your master password. The threat model includes naps.' },
+        { line: 'Unique nonces are not a suggestion. If one repeats, the oracle quietly leaves the cryptography department.' },
+        { line: 'Never print the secret just to debug the secret. “Temporary logging” is how tomorrow gets archaeological layers.' },
+        { line: 'ChaCha20-Poly1305 secured the vault. The cat secured the keyboard by sleeping on it. Division of labor remains efficient.' },
+        { line: 'Local-first means the data stays close. The oracle approves because clouds are outside and outside contains weather.' },
+        { line: 'The service is running. The port is listening. The firewall has developed an independent opinion on whether any of that matters.' },
+        { line: 'A surprising percentage of advanced systems engineering is eventually pointing at one cable and saying “you.”' },
+        { line: 'Do not change props, PID values, parser code, and battery chemistry in the same test. The oracle has confiscated the screwdriver.' },
+        { line: '87 grams is not a weight anymore. It is a belief system with propellers.' },
+        { line: 'The vault has no cloud sync. The oracle describes this as “excellent perimeter control” and then goes back to sleep.' }
       ];
       let lastOracleIndex = -1;
       let lastFocus = null;
+      let oracleRenderToken = 0;
+      const NECO_IMAGE = 'https://raw.githubusercontent.com/proto6699/GroundLink-Demo/main/neco-drone.png';
+
+      // Small ready-to-use deck. Nothing in the UI waits on the network.
+      const oracleCatDeck = [];
+      const oracleCatSeen = new Set();
+      let oracleDeckLoading = null;
+      const ORACLE_DECK_TARGET = 6;
 
       const setOracleFallback = () => {
-        oracleImage.src = 'cat-favicon.png';
-        oracleImage.alt = 'Neco, fallback oracle';
+        oracleImage.classList.add('is-neco');
+        oracleImage.src = NECO_IMAGE;
+        oracleImage.alt = 'Neco, the den oracle';
       };
 
-      const loadOracleImage = async (animal) => {
-        setOracleFallback();
+      const preloadImage = (url, timeoutMs = 2200) => new Promise((resolve, reject) => {
+        const img = new Image();
+        let settled = false;
+        const finish = (ok) => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          ok ? resolve(url) : reject(new Error('oracle image failed'));
+        };
+        const timer = setTimeout(() => finish(false), timeoutMs);
+        img.onload = () => finish(true);
+        img.onerror = () => finish(false);
+        img.src = url;
+      });
 
-        if (animal === 'fox') {
-          try {
-            const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), 4500);
-            const response = await fetch('https://randomfox.ca/floof/', { signal: controller.signal });
-            clearTimeout(timeout);
-            if (!response.ok) throw new Error('fox oracle unavailable');
-            const data = await response.json();
-            if (!data.image) throw new Error('fox oracle missing image');
-            oracleImage.src = data.image;
-            oracleImage.alt = 'Random fox oracle';
-            return;
-          } catch (_) {
-            // If the hobby API is unavailable or blocked by CORS, fall back to Neco.
-            return;
-          }
+      const shuffle = (items) => {
+        const copy = [...items];
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
         }
+        return copy;
+      };
 
-        oracleImage.src = `https://cataas.com/cat?type=medium&width=520&height=390&fit=cover&v=${Date.now()}`;
-        oracleImage.alt = 'Random cat oracle';
+      const refillOracleDeck = async () => {
+        if (oracleDeckLoading || oracleCatDeck.length >= ORACLE_DECK_TARGET) return oracleDeckLoading;
+
+        oracleDeckLoading = (async () => {
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 2200);
+          try {
+            // No tags: just cats. Fetch metadata once, then quietly preload a handful.
+            const skip = Math.floor(Math.random() * 80);
+            const response = await fetch(`https://cataas.com/api/cats?limit=24&skip=${skip}`, { signal: controller.signal });
+            if (!response.ok) throw new Error('cat deck unavailable');
+            const cats = await response.json();
+            if (!Array.isArray(cats) || !cats.length) throw new Error('cat deck empty');
+
+            const candidates = shuffle(cats)
+              .map((cat) => cat._id || cat.id)
+              .filter(Boolean)
+              .filter((id) => !oracleCatSeen.has(id));
+
+            for (const id of candidates) {
+              if (oracleCatDeck.length >= ORACLE_DECK_TARGET) break;
+              try {
+                const url = await preloadImage(`https://cataas.com/cat/${id}`, 2200);
+                oracleCatSeen.add(id);
+                oracleCatDeck.push(url);
+              } catch (_) {
+                // Skip slow/broken cats. Neco remains the fallback.
+              }
+            }
+          } catch (_) {
+            // Silent failure by design: oracle still works with Neco.
+          } finally {
+            clearTimeout(timer);
+            oracleDeckLoading = null;
+          }
+        })();
+
+        return oracleDeckLoading;
+      };
+
+      const takeOracleCat = () => {
+        const url = oracleCatDeck.shift() || null;
+        if (oracleCatDeck.length < 3) refillOracleDeck();
+        return url;
+      };
+
+      const showOracleImage = (url) => {
+        if (!url) return;
+        oracleImage.classList.remove('is-neco');
+        oracleImage.src = url;
+        oracleImage.alt = 'Cat oracle';
+      };
+
+      const loadOracleImage = () => {
+        ++oracleRenderToken;
+        setOracleFallback(); // Neco appears immediately, every time.
+        const readyCat = takeOracleCat();
+        if (readyCat) showOracleImage(readyCat);
       };
 
       oracleImage.addEventListener('error', setOracleFallback);
+
+      // Fill the deck before the user asks for it; never block the summon ritual.
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => refillOracleDeck(), { timeout: 1200 });
+      } else {
+        setTimeout(refillOracleDeck, 350);
+      }
 
       const summonOracle = () => {
         lastOracleIndex = pickNewIndex(oracleEntries, lastOracleIndex);
         const entry = oracleEntries[lastOracleIndex];
         oracleCopy.textContent = entry.line;
-        loadOracleImage(entry.animal);
+        loadOracleImage();
       };
 
       const openOracle = () => {
