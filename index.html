@@ -49,13 +49,13 @@
   }
   </script>
 
-  <!-- Set the saved theme BEFORE first paint so dark-mode visitors don't get flashed the light theme. -->
+  <!-- Default to light before first paint; preserve an explicit saved preference. -->
   <script>
     (function () {
       try {
         var t = localStorage.getItem('ech0-theme');
         if (t !== 'dark' && t !== 'light') {
-          t = (matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          t = 'light';
         }
         document.documentElement.dataset.theme = t;
       } catch (e) {
@@ -519,14 +519,13 @@
     .hero-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr);
-      grid-template-rows: auto auto;
+      grid-template-rows: auto;
       gap: clamp(22px, 3vw, 32px) clamp(34px, 5vw, 74px);
       align-items: stretch;
     }
-    .hero-copy { grid-column: 1; grid-row: 1 / span 2; align-self: center; position: relative; z-index: 2; }
-    .mindmap, .hero-grid > .hud { position: relative; z-index: 1; }
+    .hero-copy { grid-column: 1; grid-row: 1; align-self: center; position: relative; z-index: 2; }
+    .mindmap { position: relative; z-index: 1; }
     .mindmap { grid-column: 2; grid-row: 1; }
-    .hero-grid > .hud { grid-column: 2; grid-row: 2; }
     .hero-copy { max-width: 730px; }
     .hero-copy .eyebrow { margin-bottom: 18px; }
     .hero h1 {
@@ -535,15 +534,24 @@
       letter-spacing: -.04em;
       overflow-wrap: break-word;
     }
+    /* Every phrase shares one grid cell, so the tallest reserves space at
+       every viewport/font size, including before JavaScript starts. */
     .rotator {
-      display: inline-block;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
       position: relative;
-      vertical-align: baseline;
       white-space: normal;
     }
     .rotator span {
-      display: inline-block;
+      grid-area: 1 / 1;
+      min-width: 0;
+      visibility: hidden;
+      opacity: 0;
       transition: opacity .35s ease, transform .35s cubic-bezier(.2,.8,.2,1), filter .35s ease;
+    }
+    .rotator span.is-active {
+      visibility: visible;
+      opacity: 1;
     }
     .rotator span.out {
       opacity: 0;
@@ -602,58 +610,6 @@
     .btn.primary:hover { background: var(--primary-hover); color: var(--primary-text); }
     :root[data-theme="dark"] .btn.primary { box-shadow: 0 0 18px rgba(124, 77, 255, .45); }
     :root[data-theme="dark"] .btn.primary:hover { box-shadow: 0 0 26px rgba(124, 77, 255, .65); }
-
-    .hud {
-      position: relative;
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius);
-      background: rgba(var(--panel-rgb), .72);
-      backdrop-filter: blur(14px);
-      box-shadow:
-        inset 0 0 0 1px rgba(var(--accent-rgb), .035),
-        var(--glow);
-      overflow: hidden;
-    }
-    :root[data-theme="dark"] .hud { box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), .08), 0 0 28px rgba(var(--accent-rgb), .12); }
-    .hud::before,
-    .hud::after {
-      content: "";
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      pointer-events: none;
-    }
-    .hud::before { top: -1px; left: -1px; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); }
-    .hud::after { right: -1px; bottom: -1px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); }
-    .hud-rail {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(var(--accent-rgb), .035);
-      color: var(--faint);
-      font-family: var(--font-mono);
-      font-size: .65rem;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-    }
-    .hud-live { color: var(--good); display: flex; align-items: center; gap: 7px; }
-    .hud-body { padding: 18px 18px 12px; }
-    .hud-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px dashed var(--border);
-      font-family: var(--font-mono);
-      font-size: .83rem;
-    }
-    .hud-row:last-of-type { border-bottom: 0; }
-    .hud-row .k { color: var(--faint); }
-    .hud-row .v { color: var(--text); font-weight: 600; }
-    .hud-cap { margin: 9px 0 0; color: var(--faint); font-size: .7rem; }
 
     /* ============================================================
        09. SECTIONS
@@ -1334,9 +1290,8 @@
     @media (max-width: 980px) {
       .hero-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
       .hero-copy { grid-column: 1; grid-row: auto; }
-      .mindmap, .hero-grid > .hud { grid-column: 1; grid-row: auto; }
+      .mindmap { grid-column: 1; grid-row: auto; }
       .hero h1 { max-width: 14ch; }
-      .hud { max-width: 100%; }
       .project-card { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(260px, .78fr) minmax(0, 1.22fr); }
       .project-card.featured { grid-template-columns: minmax(260px, .85fr) minmax(0, 1.15fr); }
       .project-visual { min-height: 100%; border-right: 1px solid var(--border); border-bottom: 0; }
@@ -1474,7 +1429,7 @@
         <div class="hero-grid">
           <div class="hero-copy reveal">
             <div class="eyebrow">ECH0 // THE DEN</div>
-            <h1>I build <span class="rotator grad" id="rotator" aria-live="off"><span id="rotatorWord">autonomous systems</span></span> from flight hardware to ground software.</h1>
+            <h1>I build <span class="rotator grad" id="rotator" aria-live="off"><span class="is-active">autonomous systems</span><span aria-hidden="true">flight hardware</span><span aria-hidden="true">telemetry pipelines</span><span aria-hidden="true">ground stations</span><span aria-hidden="true">fox-approved vaults</span></span> from flight hardware to ground software.</h1>
             <p class="lede">Rust, MAVLink, ArduPilot, embedded Linux, custom airframes, and whatever the project needs. I take ideas from rough sketch → working prototype → real-world test. If it flies, talks over a weird protocol, or makes the lab bench look suspicious, even better.</p>
             <div class="hero-cta">
               <a class="btn primary" href="#systems">Enter the build index <span aria-hidden="true">↓</span></a>
@@ -1549,19 +1504,6 @@
             </div>
           </div>
 
-          <aside class="hud reveal" aria-label="Simulated Echo 03 telemetry">
-            <div class="hud-rail">
-              <span>TELEMETRY // ECHO 03</span>
-              <span class="hud-live"><span class="status-dot"></span>sim feed</span>
-            </div>
-            <div class="hud-body">
-              <div class="hud-row"><span class="k">ALTITUDE</span><span class="v" id="hudAlt">—</span></div>
-              <div class="hud-row"><span class="k">BATTERY</span><span class="v" id="hudBatt">—</span></div>
-              <div class="hud-row"><span class="k">HEADING</span><span class="v" id="hudHdg">—</span></div>
-              <div class="hud-row"><span class="k">UPTIME</span><span class="v" id="hudTime">00:00</span></div>
-              <p class="hud-cap">simulated flight data — a static portfolio felt wrong for a drone site</p>
-            </div>
-          </aside>
         </div>
       </div>
 
@@ -1948,50 +1890,31 @@
       toTop.addEventListener('click', () => scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
 
       /* ---------- rotating hero word ---------- */
-      const rotatorWord = document.getElementById('rotatorWord');
-      const heroWords = ['autonomous systems', 'flight hardware', 'telemetry pipelines', 'ground stations', 'fox-approved vaults'];
+      const heroWords = [...document.querySelectorAll('#rotator > span')];
       let rotIndex = 0;
       if (!reduceMotion) {
         setInterval(() => {
-          rotatorWord.classList.add('out');
+          const currentWord = heroWords[rotIndex];
+          currentWord.classList.add('out');
           setTimeout(() => {
+            currentWord.classList.remove('is-active', 'out');
+            currentWord.setAttribute('aria-hidden', 'true');
             rotIndex = (rotIndex + 1) % heroWords.length;
-            rotatorWord.textContent = heroWords[rotIndex];
-            rotatorWord.classList.remove('out');
+            heroWords[rotIndex].classList.add('is-active');
+            heroWords[rotIndex].removeAttribute('aria-hidden');
           }, 360);
         }, 2800);
       }
 
-      /* ---------- HUD telemetry + waveform ---------- */
-      const alt = document.getElementById('hudAlt');
-      const batt = document.getElementById('hudBatt');
-      const hdg = document.getElementById('hudHdg');
-      const time = document.getElementById('hudTime');
-      let t = 0, heading = 118;
-      const telemetry = () => {
-        t += 1;
-        heading = (heading + 2.4 + Math.sin(t / 8)) % 360;
-        const altitude = 31.6 + Math.sin(t / 4) * 2.2 + Math.sin(t / 13) * .7;
-        const battery = Math.max(3.42, 4.17 - t * .0008);
-        alt.textContent = altitude.toFixed(1) + ' m';
-        batt.textContent = battery.toFixed(2) + ' V';
-        hdg.textContent = String(Math.round(heading)).padStart(3, '0') + '°';
-        const mins = Math.floor(t / 60), secs = t % 60;
-        time.textContent = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
-      };
-      telemetry();
-      let telemetryTimer = setInterval(telemetry, 1000);
-
+      /* ---------- local clock ---------- */
       const clock = document.getElementById('clock');
       const updClock = () => { clock.textContent = new Date().toLocaleTimeString([], { hour12: false }); };
       updClock();
       let clockTimer = setInterval(updClock, 1000);
       document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
-          clearInterval(telemetryTimer); telemetryTimer = null;
           clearInterval(clockTimer); clockTimer = null;
         } else {
-          if (!telemetryTimer) telemetryTimer = setInterval(telemetry, 1000);
           if (!clockTimer) clockTimer = setInterval(updClock, 1000);
         }
       });
