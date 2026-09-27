@@ -1892,19 +1892,23 @@
       /* ---------- rotating hero word ---------- */
       const heroWords = [...document.querySelectorAll('#rotator > span')];
       let rotIndex = 0;
-      if (!reduceMotion) {
-        setInterval(() => {
-          const currentWord = heroWords[rotIndex];
+      setInterval(() => {
+        const currentWord = heroWords[rotIndex];
+        const showNextWord = () => {
+          currentWord.classList.remove('is-active', 'out');
+          currentWord.setAttribute('aria-hidden', 'true');
+          rotIndex = (rotIndex + 1) % heroWords.length;
+          heroWords[rotIndex].classList.add('is-active');
+          heroWords[rotIndex].removeAttribute('aria-hidden');
+        };
+        if (reduceMotion) {
+          // Keep the copy rotating without sliding, blurring, or a blank pause.
+          showNextWord();
+        } else {
           currentWord.classList.add('out');
-          setTimeout(() => {
-            currentWord.classList.remove('is-active', 'out');
-            currentWord.setAttribute('aria-hidden', 'true');
-            rotIndex = (rotIndex + 1) % heroWords.length;
-            heroWords[rotIndex].classList.add('is-active');
-            heroWords[rotIndex].removeAttribute('aria-hidden');
-          }, 360);
-        }, 2800);
-      }
+          setTimeout(showNextWord, 360);
+        }
+      }, 2800);
 
       /* ---------- local clock ---------- */
       const clock = document.getElementById('clock');
