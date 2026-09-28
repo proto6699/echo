@@ -1078,6 +1078,38 @@
     .scroll-reader-content ul { margin: 12px 0 0; padding-left: 1.25rem; color: var(--dim); }
     .scroll-reader-content li + li { margin-top: 6px; }
     .scroll-aside { margin: 24px 0; padding: 13px 14px; border-left: 2px solid var(--accent-soft); background: rgba(var(--accent-soft-rgb),.035); color: var(--faint); font-family: var(--font-mono); font-size: .72rem; line-height: 1.65; }
+
+    /* GroundLink notebook figures + a native, nested image viewer. */
+    .blog-figure { margin: 22px 0 30px; }
+    .blog-figure img { display: block; width: 100%; height: auto; border-radius: 8px; }
+    .blog-figure figcaption { margin-top: 10px; color: var(--dim); font-size: .8rem; line-height: 1.6; }
+    .sketch-link { display: block; padding: 6px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--panel-2); color: var(--accent); text-decoration: none; cursor: zoom-in; }
+    .sketch-link:hover { border-color: var(--accent); }
+    .sketch-link:focus-visible, .sketch-dialog button:focus-visible, .sketch-dialog a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .sketch-link-label { display: flex; justify-content: space-between; gap: 12px; padding: 10px 6px 5px; font-family: var(--font-mono); font-size: .65rem; line-height: 1.5; }
+    .sketch-dialog { margin: auto; padding: 0; width: min(1200px, calc(100vw - 24px)); max-width: none; height: min(92vh, 980px); height: min(92dvh, 980px); max-height: none; overflow: hidden; border: 1px solid var(--border-strong); border-radius: 12px; background: var(--panel); color: var(--text); box-shadow: var(--glow); }
+    .sketch-dialog[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+    .sketch-dialog::backdrop { background: rgba(0,0,0,.82); backdrop-filter: blur(5px); }
+    .sketch-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    .sketch-toolbar h2 { margin: 0; font-size: 1rem; line-height: 1.4; }
+    .sketch-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .sketch-actions button, .sketch-actions a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 12px; border: 1px solid var(--border-strong); border-radius: 5px; background: var(--panel-2); color: var(--text); font-family: var(--font-mono); font-size: .72rem; line-height: 1.4; text-decoration: none; cursor: pointer; }
+    .sketch-actions button:hover, .sketch-actions a:hover { border-color: var(--accent); color: var(--accent); }
+    .sketch-viewport { min-height: 0; min-width: 0; overflow: auto; overscroll-behavior: contain; padding: 12px; background: rgba(var(--bg-rgb),.55); }
+    .sketch-viewport img { display: block; width: 100%; height: 100%; max-width: 100%; object-fit: contain; }
+    .sketch-viewport.is-zoomed img { width: var(--sketch-width, 1536px); height: auto; max-width: none; }
+    .sketch-caption { margin: 0; padding: 12px 16px; border-top: 1px solid var(--border); color: var(--dim); font-size: .82rem; line-height: 1.5; }
+    .sketch-caption small { display: block; margin-top: 6px; color: var(--faint); }
+    @media (max-width: 520px) {
+      .sketch-toolbar { padding: 10px 12px; gap: 8px; }
+      .sketch-toolbar h2 { width: 100%; font-size: .9rem; }
+      .sketch-actions { width: 100%; }
+      .sketch-actions button:last-child { margin-left: auto; }
+      .sketch-viewport { padding: 6px; }
+      .sketch-link-label { font-size: .6rem; }
+      .sketch-caption { padding: 10px 12px; font-size: .76rem; }
+    }
+
     .gremlin-blessing { margin-top: 38px; padding: 18px; border: 1px dashed var(--border-strong); background: rgba(var(--accent-rgb),.035); opacity: .8; transform: translateY(0); transition: opacity .45s ease, transform .45s ease; }
     .gremlin-blessing.unlocked { opacity: 1; }
     .gremlin-blessing .blessing-kicker { color: var(--accent); font-family: var(--font-mono); font-size: .61rem; letter-spacing: .1em; text-transform: uppercase; }
@@ -1769,6 +1801,21 @@
     </div>
   </div>
 
+  <dialog class="sketch-dialog" id="sketchDialog" aria-labelledby="sketchDialogTitle" aria-describedby="sketchDialogCaption">
+    <div class="sketch-toolbar">
+      <h2 id="sketchDialogTitle">GroundLink architecture sketch</h2>
+      <div class="sketch-actions">
+        <button id="sketchZoom" type="button" aria-pressed="false" aria-controls="sketchViewport">Zoom in</button>
+        <a id="sketchOriginal" target="_blank" rel="noopener noreferrer">Open image ↗</a>
+        <button id="sketchClose" type="button" aria-label="Close sketch viewer" autofocus>Close ×</button>
+      </div>
+    </div>
+    <div class="sketch-viewport" id="sketchViewport" tabindex="0" role="region" aria-label="Sketch image; scroll to explore when zoomed">
+      <img id="sketchDialogImage" alt="" width="1536" height="1024" draggable="false">
+    </div>
+    <p class="sketch-caption"><span id="sketchDialogCaption"></span><small id="sketchZoomHint">Zoom in to read the handwriting, or open the image in a new tab.</small></p>
+  </dialog>
+
   <div class="oracle-modal" id="oracleModal" role="dialog" aria-modal="true" aria-label="The den oracle" aria-hidden="true">
     <div class="oracle-card">
       <div class="oracle-image-wrap">
@@ -2088,6 +2135,7 @@
       const projectModal = document.getElementById('projectModal');
       const scrollModal = document.getElementById('scrollModal');
       const oracleModal = document.getElementById('oracleModal');
+      const sketchDialog = document.getElementById('sketchDialog');
       const allModals = [projectModal, scrollModal, oracleModal];
       const openModal = (modal, focusTarget) => {
         modal.classList.add('show');
@@ -2101,7 +2149,7 @@
         document.body.style.overflow = '';
       };
       document.addEventListener('keydown', (e) => {
-        if (e.key !== 'Tab') return;
+        if (sketchDialog.open || e.key !== 'Tab') return;
         const modal = allModals.find(m => m.classList.contains('show'));
         if (!modal) return;
         const card = modal.querySelector('.den-modal-card, .oracle-card');
@@ -2208,12 +2256,45 @@
       const gremlinBlessing = document.getElementById('gremlinBlessing');
       const gremlinBlessingText = document.getElementById('gremlinBlessingText');
 
+      const groundlinkSketches = {
+        pipeline: {
+          title: 'How the pieces connect',
+          alt: 'Handwritten GroundLink workflow: telemetry travels from ArduPilot through Rust to the browser; waypoint plans travel back through HTTP and MAVLink.',
+          caption: 'Vehicle data comes in; waypoint plans go back out. Rust connects the browser to ArduPilot.',
+        },
+        mission: {
+          title: 'What happens when I click upload',
+          alt: 'Handwritten mission exchange: announce the count, answer requested waypoint numbers, and wait for ArduPilot to acknowledge the upload.',
+          caption: 'GroundLink announces the route, answers each waypoint request, and waits for acceptance. Uploading does not arm the aircraft.',
+        },
+        sources: {
+          title: 'Building without a drone attached',
+          alt: 'Handwritten diagram showing the native Rust demo and ArduPilot SITL feeding the same telemetry model and browser dashboard.',
+          caption: 'The native demo and SITL feed the same dashboard. The demo bypasses MAVLink; SITL exercises the vehicle protocol.',
+        },
+      };
+      const groundlinkSketch = key => {
+        const sketch = groundlinkSketches[key];
+        const path = 'assets/groundlink/sketch-' + key;
+        return '<figure class="blog-figure">' +
+          '<a class="sketch-link" href="' + path + '.webp" data-groundlink-sketch="' + key + '" aria-haspopup="dialog" aria-label="Enlarge sketch: ' + sketch.title + '">' +
+          '<img src="' + path + '-preview.webp" srcset="' + path + '-preview.webp 768w, ' + path + '.webp 1536w" sizes="(max-width: 760px) calc(100vw - 80px), 620px" width="1536" height="1024" loading="lazy" decoding="async" alt="' + sketch.alt + '">' +
+          '<span class="sketch-link-label"><span>ARCHITECTURE SKETCH</span><span>Tap to enlarge ↗</span></span></a>' +
+          '<figcaption>' + sketch.caption + '</figcaption></figure>';
+      };
+
       const scrollDetails = {
         groundlink: { meta:'GROUNDLINK // SYS.01 // SCROLL 001', title:'Packets, promises, and one imaginary aircraft', deck:'GroundLink started with a simple requirement: get useful vehicle state into a browser without turning the protocol path into magic.', body:`
-          <h3>Start with the packet path</h3><p>The useful mental model is deliberately plain: the vehicle speaks MAVLink, the Rust service receives and interprets those messages, and the browser gets normalized state over WebSockets. Every layer has a job, and none are allowed to pretend the previous layer does not exist.</p>
+          <figure class="blog-figure"><img src="groundlink.png" alt="GroundLink browser dashboard with a vehicle map, telemetry readouts, and mission controls" width="1911" height="972" decoding="async"><figcaption>GroundLink in the browser. The sketches below follow what happens behind the screen.</figcaption></figure>
+          <h3>How the pieces connect</h3><p>ArduPilot sends MAVLink messages. Rust turns them into useful vehicle state, then WebSockets carry that state to the browser. Waypoint plans travel back through an HTTP endpoint and the MAVLink mission protocol.</p>
+          ${groundlinkSketch('pipeline')}
           <div class="scroll-aside">FOX IN THE MARGIN // abstractions are good. invisible failure modes are less charming.</div>
-          <h3>Why async Rust here</h3><p>Telemetry is mostly waiting with consequences. The backend needs to keep reading vehicle messages, serve the web UI, and push updates without one slow path freezing the others. Tokio gives the concurrency model; Axum keeps the HTTP/WebSocket surface small enough to reason about.</p><ul><li>MAVLink stays the vehicle-facing source of truth.</li><li>WebSockets are the browser-facing stream, not a replacement for MAVLink.</li><li>SITL makes bad ideas fail cheaply before hardware is involved.</li></ul>
-          <h3>The current edge</h3><p>The software path is validated against ArduPilot SITL. The next useful jump is hardware-in-the-loop and direct vehicle testing, because simulation is excellent at reproducing the world it was told about and less excellent at reproducing the cable you forgot was loose.</p><div class="scroll-aside">DEN PROCEDURE // if the bug vanishes when logging is enabled, congratulations: telemetry-shaped quantum mechanics.</div>`, reward:'BLESSING ACQUIRED // may your packets arrive in order, your timestamps be sane, and your “temporary” logs actually be temporary.' },
+          <h3>Why async Rust here</h3><p>The backend keeps reading telemetry while serving the dashboard and pushing updates. Tokio handles those concurrent tasks; Axum handles HTTP and WebSockets. A shared snapshot holds the latest vehicle state, and broadcasts keep browser windows updated.</p>
+          <h3>What happens when I click upload</h3><p>The map clicks become a list of coordinates and altitudes. Rust checks the list, announces how many waypoints it contains, and sends each item when ArduPilot asks for it. The upload succeeds when ArduPilot acknowledges it. Arming and switching to AUTO are separate steps.</p>
+          ${groundlinkSketch('mission')}
+          <h3>Building without a drone attached</h3><p>The native Rust demo generates telemetry directly, so I can work on the map, instruments, and waypoint interface without a flight controller. ArduPilot SITL takes the MAVLink path instead. Both feed the same dashboard; the demo tests the interface, while SITL lets me exercise the vehicle protocol.</p>
+          ${groundlinkSketch('sources')}
+          <h3>The current edge</h3><p>The software path is validated against ArduPilot SITL. Next comes hardware-in-the-loop and direct vehicle testing. Simulation is useful, but it will not find the cable I forgot was loose.</p><div class="scroll-aside">DEN PROCEDURE // if the bug vanishes when logging is enabled, congratulations: telemetry-shaped quantum mechanics.</div>`, reward:'BLESSING ACQUIRED // may your packets arrive in order, your timestamps be sane, and your “temporary” logs actually be temporary.' },
         echo03: { meta:'ECHO 03 // SYS.03 // SCROLL 002', title:'The 87 gram belief system', deck:'Echo 03 was less “design a drone” and more “remove everything that cannot defend its mass in court.”', body:`
           <h3>The constraint became the architecture</h3><p>Endurance on a tiny airframe is a system problem. Battery energy matters, but so do propulsive efficiency, frame drag, wiring, hardware choices, and every gram the motors keep airborne for the entire flight.</p><p>The final platform weighed 87 g all-up with a 3000 mAh 18650 cell and recorded 27:12 of continuous airtime.</p><div class="scroll-aside">CAT REVIEW // the aircraft has seen many things. statistically, a worrying number were ceilings.</div>
           <h3>What actually mattered</h3><ul><li>Keep the energy source useful without turning the airframe into a battery delivery vehicle.</li><li>Reduce mass where it does not buy reliability or control authority.</li><li>Reduce drag and avoid packaging choices that make a tiny craft fight its own shape.</li><li>Measure the full system, because spreadsheet endurance does not have wind, vibration, or pilot inputs.</li></ul>
@@ -2238,6 +2319,53 @@
       document.querySelectorAll('.scroll-teaser').forEach(card => { const activate = () => openScroll(card.dataset.scroll, card); card.addEventListener('click', activate); card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } }); });
       scrollModalClose.addEventListener('click', closeScroll);
       scrollModal.addEventListener('click', e => { if (e.target === scrollModal) closeScroll(); });
+
+      /* Native dialog stays above the article without closing it or losing its scroll position. */
+      const sketchClose = document.getElementById('sketchClose');
+      const sketchZoom = document.getElementById('sketchZoom');
+      const sketchViewport = document.getElementById('sketchViewport');
+      const sketchImage = document.getElementById('sketchDialogImage');
+      const sketchHint = document.getElementById('sketchZoomHint');
+      let lastSketchFocus = null;
+      const resetSketchZoom = () => {
+        sketchViewport.classList.remove('is-zoomed');
+        sketchViewport.scrollTo(0, 0);
+        sketchZoom.setAttribute('aria-pressed', 'false');
+        sketchZoom.textContent = 'Zoom in';
+        sketchHint.textContent = 'Zoom in to read the handwriting, or open the image in a new tab.';
+      };
+      scrollModalContent.addEventListener('click', e => {
+        const link = e.target.closest('[data-groundlink-sketch]');
+        if (!link || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || typeof sketchDialog.showModal !== 'function') return;
+        const sketch = groundlinkSketches[link.dataset.groundlinkSketch];
+        if (!sketch) return;
+        e.preventDefault();
+        lastSketchFocus = link;
+        document.getElementById('sketchDialogTitle').textContent = sketch.title;
+        document.getElementById('sketchDialogCaption').textContent = sketch.caption;
+        document.getElementById('sketchOriginal').href = link.href;
+        sketchImage.src = link.href;
+        sketchImage.alt = sketch.alt;
+        resetSketchZoom();
+        sketchDialog.showModal();
+        sketchClose.focus({ preventScroll: true });
+      });
+      sketchZoom.addEventListener('click', () => {
+        if (sketchViewport.classList.contains('is-zoomed')) { resetSketchZoom(); return; }
+        sketchViewport.style.setProperty('--sketch-width', (sketchImage.naturalWidth || 1536) + 'px');
+        sketchViewport.classList.add('is-zoomed');
+        sketchZoom.setAttribute('aria-pressed', 'true');
+        sketchZoom.textContent = 'Fit image';
+        sketchHint.textContent = 'Swipe or scroll across the image to read the notes. Choose Fit image to see the whole sketch.';
+      });
+      sketchClose.addEventListener('click', () => sketchDialog.close());
+      let sketchBackdropPressed = false;
+      sketchDialog.addEventListener('pointerdown', e => { sketchBackdropPressed = e.target === sketchDialog; });
+      sketchDialog.addEventListener('click', e => { if (sketchBackdropPressed && e.target === sketchDialog) sketchDialog.close(); });
+      sketchDialog.addEventListener('close', () => {
+        resetSketchZoom();
+        if (lastSketchFocus && lastSketchFocus.isConnected) lastSketchFocus.focus({ preventScroll: true });
+      });
 
       /* ---------- oracle ---------- */
       const oracleBtn = document.getElementById('oracleBtn');
@@ -2372,6 +2500,7 @@
       /* ---------- keyboard ritual ---------- */
       const isTypingTarget = (target) => target && (target.matches && target.matches('input, textarea, select') || target.isContentEditable);
       document.addEventListener('keydown', (e) => {
+        if (sketchDialog.open) return; // The native image dialog owns Escape and focus while open.
         if (e.key === 'Escape') {
           if (projectModal.classList.contains('show')) { closeProjectDossier(); return; }
           if (scrollModal.classList.contains('show')) { closeScroll(); return; }
@@ -2387,3 +2516,4 @@
   </script>
 </body>
 </html>
+
