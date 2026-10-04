@@ -1879,11 +1879,11 @@
                 <g class="mm-leaf" data-parent="scrolls" data-target="#scrolls" data-label="FAIL" data-detail="A record of the bits that refused to behave the first time." tabindex="0" role="button" aria-label="Failure note node"><circle cx="498" cy="108" r="17"/><text x="498" y="111">FAIL</text></g>
                 <g class="mm-leaf" data-parent="scrolls" data-target="#scrolls" data-label="FIX" data-detail="The practical loop: inspect, change one thing, test again." tabindex="0" role="button" aria-label="Fix note node"><circle cx="472" cy="154" r="17"/><text x="472" y="157">FIX</text></g>
 
-                <g class="mm-node" data-map="systems" data-target="#systems" data-index="01" data-title="Systems // build index" data-detail="Five builds spanning ground control, security, flight hardware, autonomy, and Linux." tabindex="0" role="link" aria-label="Systems — five builds">
-                  <circle cx="108" cy="72" r="30"/><text x="108" y="69">SYSTEMS</text><text class="mm-sub" x="108" y="83">05 builds</text>
+                <g class="mm-node" data-map="systems" data-target="#systems" data-index="01" data-title="Systems // build index" data-detail="Six builds spanning ground control, security, flight hardware, autonomy, Linux, and local AI." tabindex="0" role="link" aria-label="Systems — six builds">
+                  <circle cx="108" cy="72" r="30"/><text x="108" y="69">SYSTEMS</text><text class="mm-sub" x="108" y="83">06 builds</text>
                 </g>
-                <g class="mm-node" data-map="scrolls" data-target="#scrolls" data-index="02" data-title="Scrolls // build notes" data-detail="Technical notes on telemetry, endurance, autonomy, and Linux archaeology." tabindex="0" role="link" aria-label="Scrolls — four notes">
-                  <circle cx="414" cy="74" r="30"/><text x="414" y="71">SCROLLS</text><text class="mm-sub" x="414" y="85">04 notes</text>
+                <g class="mm-node" data-map="scrolls" data-target="#scrolls" data-index="02" data-title="Scrolls // build notes" data-detail="Technical notes on telemetry, endurance, autonomy, Linux, and local AI." tabindex="0" role="link" aria-label="Scrolls — five notes">
+                  <circle cx="414" cy="74" r="30"/><text x="414" y="71">SCROLLS</text><text class="mm-sub" x="414" y="85">05 notes</text>
                 </g>
                 <g class="mm-node" data-map="about" data-target="#about" data-index="03" data-title="About // operator profile" data-detail="The person and toolbox behind the systems." tabindex="0" role="link" aria-label="About the operator">
                   <circle cx="106" cy="310" r="28"/><text x="106" y="307">ABOUT</text><text class="mm-sub" x="106" y="321">operator</text>
@@ -2022,6 +2022,15 @@
               </div>
             </div>
           </article>
+
+          <article class="project-card reveal project-teaser" data-project="neco" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open Echo Local AI project dossier">
+            <div class="spot" aria-hidden="true"></div>
+            <div class="project-visual"><img src="neco.png" alt="Neco, resident gremlin of Echo Local AI" width="960" height="640" loading="lazy" decoding="async"><span class="visual-tag">LOCAL AI EXPERIMENT</span></div>
+            <div class="project-content">
+              <div class="module-rail"><span class="module-id">SYS.06</span><span class="module-cat">Software / Local AI</span><span class="module-state wip"><span class="mini-dot"></span>experimental</span></div>
+              <div class="project-body"><h3>Echo Local AI / Neco</h3><p class="project-desc">A local model with a CRT home, a persistent persona, unsolicited thoughts, and real host vitals. The gremlin has moved in.</p><div class="teaser-open mono">OPEN DOSSIER // stack · results · architecture <span aria-hidden="true">↗</span></div></div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -2035,6 +2044,14 @@
         </div>
 
         <div class="scroll-grid">
+          <article class="scroll-card reveal scroll-teaser" data-scroll="neco" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Read The gremlin was installed successfully. Allegedly.">
+            <div class="scroll-meta"><span class="scroll-project">ECHO LOCAL AI // SYS.06</span><time datetime="2026-10-04">04 OCT 2026</time></div>
+            <h3>The gremlin was installed successfully. Allegedly.</h3>
+            <p>Building Neco: missing personality, container networking, CRT excess, idle silence, and a small model trying to pay rent.</p>
+            <div class="scroll-margin">DEN NOTE // a successful install is a claim that requires witnesses.</div>
+            <div class="scroll-read mono">UNROLL SCROLL <span aria-hidden="true">↓</span></div>
+          </article>
+
           <article class="scroll-card reveal scroll-teaser" data-scroll="groundlink" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Read Packets, promises, and one imaginary aircraft">
             <div class="scroll-meta"><span class="scroll-project">GROUNDLINK // SYS.01</span><time datetime="2026-09-07">07 SEP 2026</time></div>
             <h3>Packets, promises, and one imaginary aircraft</h3>
@@ -2667,6 +2684,16 @@
       const projectModalLinks = document.getElementById('projectModalLinks');
 
       const projectDetails = {
+        neco: {
+          rail: 'SYS.06 // SOFTWARE / LOCAL AI // EXPERIMENTAL', image: 'neco.png', alt: 'Neco, resident of the Den', kicker: 'LOCAL MODEL / PERSISTENT GREMLIN', title: 'Echo Local AI / Neco',
+          summary: 'I wanted a local AI with somewhere to live. The Den gives Open WebUI a CRT interface and soundtrack; Neco adds a compact persona, a host daemon that posts idle thoughts, and experimental read-only system vitals. Built and tested across my CachyOS machines, including the CF-SV9 and BC-250.',
+          stack: ['Open WebUI','Ollama','Docker Compose','Python','systemd','HTML / CSS / JS'],
+          results: [['Default model','Llama 3.2 1B'],['Persona','Saved + verified'],['Idle thoughts','systemd user service'],['Host vitals','Experimental / read-only']],
+          flow: 'BROWSER → Open WebUI / Docker → Ollama → local model | HOST DAEMON → idle chat + vitals snapshot',
+          note: 'A personal experiment in making local AI feel at home. Installation, inference, personality, and background services each had their own opinions about when the project was finished.',
+          links: [['Repository','https://github.com/proto6699/echo-local-ai']]
+        },
+
         groundlink: {
           rail: 'SYS.01 // SOFTWARE / GROUND CONTROL // VALIDATED', image: 'groundlink.png', alt: 'GroundLink Rust MAVLink ground-control dashboard', kicker: 'FLAGSHIP SYSTEM', title: 'GroundLink',
           summary: 'A real-time ground-control station for MAVLink-based unmanned aircraft. The backend keeps the path obvious: read vehicle messages, normalize state, stream it to the browser, and leave enough of the transport visible to debug.',
@@ -2776,6 +2803,19 @@
       };
 
       const scrollDetails = {
+        neco: { meta:'ECHO LOCAL AI // SYS.06 // SCROLL 005', title:'The gremlin was installed successfully. Allegedly.', deck:'I wanted a local AI with a home, a voice, and the ability to say something when I was not actively poking it. Getting there involved considerably more plumbing than the cat suggests.', body:`
+          <h3>A home for a small model</h3><p>Echo Local AI started with a fairly unreasonable aesthetic requirement: a local chat interface should feel like a place. Green phosphor, DOS-style type, scanlines, static, reflections, and a soundtrack. I called it the Den. Neco would live there, greet me with “meowdy,” and occasionally offer a thought nobody had requested.</p><p>The parts were straightforward on paper: Open WebUI in Docker, Ollama for inference, a persona and avatar, and a Python daemon managed by a systemd user service. The work crossed my CachyOS machines, from the CF-SV9 laptop to the repurposed BC-250. Each layer could work independently while the whole thing still refused to cooperate.</p>
+          <h3>She could answer. She was not Neco yet.</h3><p>One of the most frustrating failures looked like success. The model responded, but the personality was missing. At one point a simple greeting produced an explanation of a code snippet. Judging the installation from the reply alone was getting us nowhere.</p><p>The useful change was to inspect and fix the setup path. The persona script checks which models the Open WebUI account can see, reads the existing configuration, saves the system prompt and avatar, and verifies what was saved. Once that worked, a refresh and a new chat finally gave me Neco. The old conversation was a poor place to judge a freshly changed prompt.</p><p>The earlier Qwen 2.5 0.5B test was useful for checking the plumbing, but did not carry the persona well in my tests. Llama 3.2 1B with a compact prompt became the modest starting point. The backstory could grow later; first the small model needed a clear identity and readable instructions.</p>
+          <div class="scroll-aside">NECO NOTE // being installed and being introduced are apparently separate procedures.</div>
+          <h3>It works on the host. The container disagrees.</h3><p>Docker socket permissions interrupted the setup. Another failure was more subtle: Ollama worked directly on the host while the browser stack could not reliably reach it. A working host request did not prove the container connection was healthy.</p><p>The configuration needed a host address reachable from Docker, using host.docker.internal on port 11434 with the corresponding host mapping and Ollama listener setup. Ollama also had to be running. The doctor script and explicit service checks became more useful than another reinstall performed on optimism alone.</p><p>Authentication was another separate dependency. A rejected API token could stop persona setup and leave the idle service unstarted. A model, a web interface, an account, and a daemon all being present did not guarantee they had agreed to talk.</p>
+          <h3>The CRT became a little too authentic</h3><p>I kept pushing the interface toward an old terminal: stronger scanlines, flicker, static, glass effects, and a pixel font. Then the text became hard to read. On the phone, the controls took too much room and interfered with the chat. The Neco QC and music boxes also needed repeated work to feel consistent.</p><p>The fixes were less glamorous than the effects: readable typography, smaller and better-positioned mobile controls, and eventually removing Neco QC from the interface. Recovering a lost theme also made it obvious that the customization needed to live in the repository and installation path. A beautiful patch that disappears on the next rebuild is temporary decoration.</p>
+          <div class="scroll-aside">DISPLAY REPORT // achieved historical accuracy. unfortunately, this included eye strain.</div>
+          <h3>Silence had a service name</h3><p>The unsolicited thoughts come from a host Python daemon, not from leaving a browser tab open. It posts into “Neco — idle,” normally every 20–45 minutes. Closing the browser does not stop that service; suspending the machine pauses the work.</p><p>When Neco went quiet, the useful question was whether echo-local-ai-neco.service was active and able to authenticate. Restarting a chat was not the same as restarting the daemon. Giving the background work an inspectable service made the silence something I could investigate.</p>
+          <h3>Can she feel the machine getting warm?</h3><p>I wanted Neco to answer questions about her actual host. The experimental vitals collector writes a snapshot of uptime, load, memory, battery, and available temperature sensors. An Open WebUI filter supplies that reading when a relevant question comes in.</p><p>That boundary matters: the model receives a read-only snapshot. Missing sensors remain missing, and old readings are treated as stale. The daemon must be running for fresh readings. A temperature answer is useful only when there is a measurement behind it.</p>
+          <h3>Small brain, real constraints</h3><p>Slow responses also sent me looking at the runtime. The recent Ollama check showed Llama 3.2 1B running entirely on CPU with a 4096-token context. That is an observation about that run, not proof that acceleration is working on the BC-250. A reply appearing on screen tells me inference works; processor placement tells me where it works.</p><p>The next model choice is still about leaving the machine breathing room. I would rather have a responsive resident than spend every conversation waiting for a larger model to finish moving in.</p>
+          <h3>What survived the rebuilds</h3><p>The Den now has its interface, music, verified persona setup, idle service, and experimental host vitals. It is still a personal experiment. Small models drift, services need attention, and hardware support has to be checked in the actual runtime.</p><p>The biggest lesson was to stop treating “Neco is broken” as one diagnosis. Check inference, container connectivity, saved configuration, authentication, background service, and presentation separately. Then change the part the evidence points at.</p><p><a href="https://github.com/proto6699/echo-local-ai" target="_blank" rel="noopener noreferrer">Open the Echo Local AI repository ↗</a></p>
+          <div class="scroll-aside">DEN STATUS // the gremlin has moved in. the toaster has declined to comment.</div>`, reward:'BLESSING ACQUIRED // may your persona persist, your container find the host, and your idle daemon remember to clock in.' },
+
         groundlink: { meta:'GROUNDLINK // SYS.01 // SCROLL 001', title:'Packets, promises, and one imaginary aircraft', deck:'GroundLink started with a simple requirement: get useful vehicle state into a browser without turning the protocol path into magic.', body:`
           <figure class="blog-figure"><img src="groundlink.png" alt="GroundLink browser dashboard with a vehicle map, telemetry readouts, and mission controls" width="1911" height="972" decoding="async"><figcaption>GroundLink in the browser. The sketches below follow what happens behind the screen.</figcaption></figure>
           <h3>How the pieces connect</h3><p>ArduPilot sends MAVLink messages. Rust turns them into useful vehicle state, then WebSockets carry that state to the browser. Waypoint plans travel back through an HTTP endpoint and the MAVLink mission protocol.</p>
