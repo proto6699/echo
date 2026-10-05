@@ -1124,6 +1124,80 @@
     html[data-theme="dark"] body.reading #ech0-phosphor { opacity:.30; }
     html[data-theme="dark"] body.reading #ech0-static { opacity:.025; }
 
+    /* iPhone / narrow-screen light mode: these must live after the light restore
+       block so desktop Harvest Moon rules cannot override the responsive layout. */
+    @media (max-width:760px) {
+      html[data-theme="light"] .wrap { width:min(calc(100% - 34px), var(--max)); }
+      html[data-theme="light"] nav.wrap { grid-template-columns:auto 1fr auto; gap:8px; min-height:64px; }
+      html[data-theme="light"] .navright { gap:6px; }
+      html[data-theme="light"] .icon-btn { width:42px; height:42px; border-radius:10px; }
+      html[data-theme="light"] .navlinks {
+        left:17px; right:17px; top:64px; padding:8px 16px 14px;
+        border:1px solid #C9952A; border-top:0;
+        background:#2C1A0E; box-shadow:0 12px 30px rgba(44,26,14,.18);
+      }
+      html[data-theme="light"] .navlinks a { padding:12px 4px; border-bottom:1px solid rgba(201,149,42,.38); }
+
+      html[data-theme="light"] .hero { padding:58px 0 0; }
+      html[data-theme="light"] .hero-grid {
+        grid-template-columns:1fr; grid-template-rows:auto; gap:34px; align-items:start;
+      }
+      html[data-theme="light"] .hero-copy,
+      html[data-theme="light"] .mindmap { grid-column:1; grid-row:auto; width:100%; }
+      html[data-theme="light"] .hero-copy { max-width:none; }
+      html[data-theme="light"] .hero h1 {
+        max-width:100%; font-size:clamp(2.45rem,12vw,4.6rem); line-height:1.03;
+      }
+      html[data-theme="light"] .hero-cta { margin-top:26px; gap:10px; }
+      html[data-theme="light"] .hero-cta .btn { min-height:46px; }
+
+      html[data-theme="light"] section:not(.hero) { padding:74px 0; }
+      html[data-theme="light"] .sec-head { margin-bottom:36px; }
+      html[data-theme="light"] .mindmap { min-height:0; max-width:680px; margin-inline:auto; border-radius:14px; }
+      html[data-theme="light"] .mindmap-stage { overflow:hidden; }
+      html[data-theme="light"] .mindmap svg { width:118%; margin-left:-9%; min-height:0; }
+      html[data-theme="light"] .mm-inspector { grid-template-columns:auto 1fr; }
+      html[data-theme="light"] .mm-inspector-hint { display:none; }
+
+      html[data-theme="light"] .project-card,
+      html[data-theme="light"] .project-card.featured { display:flex; grid-column:1/-1; border-radius:14px; }
+      html[data-theme="light"] .project-visual,
+      html[data-theme="light"] .featured .project-visual {
+        aspect-ratio:16/9; min-height:0; border-right:0; border-bottom:1px solid #D9B36A;
+      }
+      html[data-theme="light"] .project-body { padding:21px 18px 19px; }
+      html[data-theme="light"] .module-rail { grid-template-columns:auto 1fr; }
+      html[data-theme="light"] .module-state { grid-column:1/-1; }
+      html[data-theme="light"] .scroll-grid { grid-template-columns:1fr; }
+      html[data-theme="light"] .about-grid { grid-template-columns:1fr; gap:36px; }
+      html[data-theme="light"] .about-copy { padding-left:18px; }
+      html[data-theme="light"] .contact-shell { grid-template-columns:1fr; }
+      html[data-theme="light"] .footer-console { grid-template-columns:1fr; gap:26px; }
+      html[data-theme="light"] .neco-qc { max-width:430px; }
+      html[data-theme="light"] .modal-card,
+      html[data-theme="light"] .scroll-reader { max-height:94dvh; }
+    }
+
+    @media (max-width:470px) {
+      html[data-theme="light"] .wrap { width:calc(100% - 28px); }
+      html[data-theme="light"] .brand { font-size:.88rem; }
+      html[data-theme="light"] .navright { gap:4px; }
+      html[data-theme="light"] .icon-btn { width:40px; height:40px; }
+      html[data-theme="light"] .hero { padding-top:48px; }
+      html[data-theme="light"] .hero h1 { font-size:clamp(2.2rem,11.5vw,3.35rem); }
+      html[data-theme="light"] .hero-cta { display:grid; grid-template-columns:1fr; }
+      html[data-theme="light"] .hero-cta .btn { width:100%; }
+      html[data-theme="light"] .mm-topbar { padding:10px 11px; }
+      html[data-theme="light"] .mm-hint { display:none; }
+      html[data-theme="light"] .project-grid { gap:16px; }
+      html[data-theme="light"] .project-body h3 { font-size:1.45rem; }
+      html[data-theme="light"] .contact-links .btn { width:100%; }
+      html[data-theme="light"] .footer-statusline { align-items:flex-start; flex-direction:column; }
+      html[data-theme="light"] .neco-qc { grid-template-columns:76px 1fr; }
+      html[data-theme="light"] .neco-screen { width:76px; }
+      html[data-theme="light"] .neco-screen img { width:62px; height:62px; }
+    }
+
     @media (max-width:700px) {
       html[data-theme="dark"] #ech0-scanlines { opacity:.30; }
       html[data-theme="dark"] #ech0-static { opacity:.040; }
